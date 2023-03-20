@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 45px 200px 36.25px;
+}
+  
+@media screen and (max-width: 1200px) {
+  .header {
+    padding: 40px 70px 36px;
+  }
+}
+  
+@media screen and (max-width: 800px) {
+  .header {
+    padding: 28px 0 38.25px;
+  }
+}  
