@@ -3,13 +3,13 @@ const editButton = document.querySelector(".profile__edit-button");
 // добавили в HTML пустой модификатор, по которому находим нужный попап с редактированием профайла
 const popupEditButton = document.querySelector(".popup_edit-button");
 // добавили в HTML пустой модификатор, по которому находим находим в попапе редактированиея профайла кнопку крест
-const popupEditButtonClose = popupEditButton.querySelector(".popup_edit-button_close");
+const popupCloseEditButton = popupEditButton.querySelector(".popup__close_edit-button");
 // добавила сердца
 const elementHurt = document.querySelector(".element__hurt");
 // добавляем ввод имени
 const popupNameInputType = popupEditButton.querySelector(".popup__name-input_type");
 // добавляем ввод описания под именем
-const popupAboutInputType = popupEditButton.querySelector(".popup__about-input_type");
+const popupNameAboutInput = popupEditButton.querySelector(".popup__name-about_input");
 // добавляем кнопку сохранить
 const popupButtonEdit = popupEditButton.querySelector(".popup__button-edit");
 // добавили поиск формы, в которой в попапе вписываем новые данные
@@ -26,11 +26,11 @@ editButton.addEventListener('click', () => {
   popupEditButton.classList.add('popup_open');
   // присваиваем в строках ввода значения из профайла, если этого не сделать, то строки для ввода останутся пустыми
   popupNameInputType.value = profileName.innerHTML;
-  popupAboutInputType.value = profileAbout.innerHTML;
+  popupNameAboutInput.value = profileAbout.innerHTML;
 });
 
 // добавляю слушатель к кнопке крестик
-popupEditButtonClose.addEventListener('click', () => {
+popupCloseEditButton.addEventListener('click', () => {
   // убираю модификатор, кот добавлял видимость попапу  
   popupEditButton.classList.remove('popup_open');
 });
@@ -44,7 +44,7 @@ elementHurt.addEventListener('click',() => {
 popupForm.addEventListener('submit', (event) => {
   event.preventDefault(); // обязательно при работе с формами
   const name = popupNameInputType.value;
-  const about = popupAboutInputType.value;
+  const about = popupNameAboutInput.value;
   // указываю куда сохранятся изменения
   profileName.innerHTML = name;
   profileAbout.innerHTML = about;
