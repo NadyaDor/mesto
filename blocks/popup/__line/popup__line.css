@@ -1,0 +1,12 @@
+.popup__line {
+  width: 358px;
+  height: 1px;
+  background-image: url(../../../images/Line\ 2.1.svg);
+  background-size: cover;
+}
+
+@media screen and (max-width: 800px) {
+  .popup__line {
+    width: 238px;
+  }
+}

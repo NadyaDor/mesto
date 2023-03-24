@@ -1,0 +1,14 @@
+.popup__content {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  max-width: 510px;
+}
+
+@media screen and (max-width: 800px) {
+  .popup__content {
+    grid-template-columns: 282px;
+    gap: 20px;
+    justify-items: end;
+  }
+}

@@ -1,1 +1,12 @@
-.element__hurt {}
+.element__hurt {
+  border: none;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/Vector_hurt.svg);
+  background-size: cover;
+  cursor: pointer;
+}
+
+.element__hurt:hover {
+  opacity: 0.5;
+}
