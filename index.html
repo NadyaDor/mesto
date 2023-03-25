@@ -1,82 +1,77 @@
 <!DOCTYPE html>
-<html>
-  <head lang="ru">
-    <meta charset="=UTF-8">
+<html lang="ru" lang="en" >
+  <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
     <link rel="stylesheet" href="pages/index.css">
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="images/Logo.svg" alt="Логотип">
-      <img class="header__line" src="images/Line.svg" alt="Линия">
+      <img class="header__logo" src="images/Logo.svg" alt="Логотип текущего проекта">
     </header>
     <main>
       <section class="profile">
-        <img class="profile__avatar" src="images/Jack_Iv.svg" alt="Фото Жака">
+        <img class="profile__avatar" src="images/Avatarka.jpg" alt="Аватарка хорошего человека">
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" type="button" value="Редактировать">
-            <img class="profile__edit-button-photo" src="images/Vector_pen.svg" alt="Редактировать">
-          </button>
-          <p class="profile__about">Исследователь океана</p>
+          <h1 class="profile__name">Жак-Ив Кусто и его подруга</h1>
+          <button class="profile__edit-button" type="button" value="Редактировать"></button>
+          <p class="profile__about">Исследователь океана и воздуха над океаном</p>
         </div>
-        <button class="profile__add-button"><img class="profile__add-button-photo" src="images/Vector_plus.svg" alt="Добавить"></button>
+        <button class="profile__add-button"></button>
       </section>
-      <ul class="elements">
-        <li class="element">
-          <img class="element__mask" src="images/Karachaevsk.png" alt="Карачаевск">
+      <section class="elements">
+        <div class="element">
+          <img class="element__mask" src="images/Samui.jpg" alt="где-то на острове Самуи">
           <div class="element__about">
-            <h2 class="element__place">Карачаевск</h2>
+            <h2 class="element__place">Самуи</h2>
             <button class="element__hurt"></button>
           </div>
-        </li>
-        <li class="element">
-          <img class="element__mask" src="images/Elbrus.png" alt="Эльбрус">
+        </div>
+        <div class="element">
+          <img class="element__mask" src="images/Brussel.jpg" alt="а здесь изображен кусочек Брюсселя">
           <div class="element__about">
-            <h2 class="element__place">Гора Эльбрус</h2>
+            <h2 class="element__place">Брюссель</h2>
             <button class="element__hurt"></button>
           </div>
-        </li>
-        <li class="element">
-          <img class="element__mask" src="images/Dombye.svg" alt="Домбай">
+        </div>
+        <div class="element">
+          <img class="element__mask" src="images/Kaliningrad.jpg" alt="Калининград очень красивый, но вы по какой-то причине этого не увидите">
           <div class="element__about">
-            <h2 class="element__place">Домбай</h2>
+            <h2 class="element__place">Калининград</h2>
             <button class="element__hurt"></button>
           </div>
-        </li>
-        <li class="element">
-          <img class="element__mask" src="images/Elbrus.png" alt="Эльбрус">
+        </div>
+        <div class="element">
+          <img class="element__mask" src="images/Samarkand.jpg" alt="Самарканд - очень старый город">
           <div class="element__about">
-            <h2 class="element__place">Гора Эльбрус</h2>
+            <h2 class="element__place">Самарканд</h2>
             <button class="element__hurt"></button>
           </div>
-        </li>
-        <li class="element">
-          <img class="element__mask" src="images/Dombye.svg" alt="Домбай">
+        </div>
+        <div class="element">
+          <img class="element__mask" src="images/Yalta.jpg" alt="Ялта - город счастья">
           <div class="element__about">
-            <h2 class="element__place">Домбай</h2>
+            <h2 class="element__place">Ялта - город счастья</h2>
             <button class="element__hurt"></button>
           </div>
-        </li>
-        <li class="element">
-          <img class="element__mask" src="images/Karachaevsk.png" alt="Карачаевск">
+        </div>
+        <div class="element">
+          <img class="element__mask" src="images/Tashkent.jpg" alt="В Ташкенте жарко даже в декабре">
           <div class="element__about">
-            <h2 class="element__place">Карачаево-Ч...</h2>
+            <h2 class="element__place">Ташкент</h2>
             <button class="element__hurt"></button>
           </div>
-        </li>
-      </ul>
+        </div>
+      </section>
       <!-- ВСПЛЫВАЮЩЕЕ ОКНО -->
-      <section class="popup popup_edit-button">
-        <div class="popup__content">
-          <button class="popup__close popup__close_edit-button"><img class="popup__close-img" src="images/Vector_close.svg" alt="Закрыть"></button>
+      <section class="popup">
+        <div class="popup__container">
+          <button class="popup__close"></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
           <form class="popup__form">
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input class="popup__name-input popup__name-input_type" name="name"/>
-            <img class="popup__line">
-            <input class="popup__name-about popup__name-about_input" about="about"/>
-            <img class="popup__line">
+            <input class="popup__name-input popup__name-input_name" type="text" placeholder="Введите ваше имя" name="name"/>
+            <input class="popup__name-input popup__name-input_about" type="text" placeholder="Введите ваш статус" about="about"/>
             <button class="popup__button-edit" type="submit">Сохранить</button>
           </form>
         </div>
@@ -85,6 +80,6 @@
     <footer class="footer">
       <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
-    <script src="index.js"></script>
+    <script src="/scripts/index.js"></script>
   </body>
 </html>

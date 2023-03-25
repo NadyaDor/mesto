@@ -1,17 +1,24 @@
 .header {
+  width: 880px;
+  height: 74px;
   display: flex;
   flex-direction: column;
-  padding: 45px 200px 36.25px;
+  padding-top: 45px;
+  border-bottom: 1px solid #545454;
+  margin: 0 auto;
 }
   
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 899px) {
   .header {
-    padding: 40px 70px 36px;
+    width: 581px;
   }
 }
   
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 619px) {
   .header {
-    padding: 28px 0 38.25px;
+    width: 266px;
+    height: 56px;
+    row-gap: 31.6px;
+    padding-top: 28px;
   }
 }  
