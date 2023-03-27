@@ -1,10 +1,10 @@
 .header {
   width: 880px;
-  height: 74px;
   display: flex;
   flex-direction: column;
   padding-top: 45px;
-  border-bottom: 1px solid #545454;
+  padding-bottom: 41px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
   margin: 0 auto;
 }
   
@@ -18,7 +18,7 @@
   .header {
     width: 266px;
     height: 56px;
-    row-gap: 31.6px;
     padding-top: 28px;
+    padding-bottom: 31.6px;
   }
 }  

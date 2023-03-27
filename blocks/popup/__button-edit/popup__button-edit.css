@@ -10,12 +10,12 @@
   border: none;
   border-radius: 2px;
   margin-top: 48px;
+  transition: 1s ease-in-out;
   cursor: pointer;
 }
 
 .popup__button-edit:hover {
   opacity: 0.8;
-  transition: 1s ease-in-out;
 }
 
 @media screen and (max-width: 619px) {
