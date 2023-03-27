@@ -21,8 +21,8 @@ editButton.addEventListener('click', () => {
   // добавляем модификатор, который сделает попап с редактированием профайла видимым
   popup.classList.add('popup_opened');
   // присваиваем в строках ввода значения из профайла, если этого не сделать, то строки для ввода останутся пустыми
-  popupNameInputTypeName.value = profileName.innerHTML;
-  popupNameInputTypeAbout.value = profileAbout.innerHTML;
+  popupNameInputTypeName.value = profileName.textContent;
+  popupNameInputTypeAbout.value = profileAbout.textContent;
 });
 
 // добавляем слушатель сабмита на кноgке сохранить в форме попапа. В скобки добавляем event
