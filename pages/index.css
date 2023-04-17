@@ -24,6 +24,7 @@
 @import url(../blocks/element/__place/element__place.css);
 @import url(../blocks/element/__hurt/element__hurt.css);
 @import url(../blocks/element/__hurt/_active/element__hurt_active.css);
+@import url(../blocks/element/__basket/element__basket.css);
 
 /* FOOTER */
 @import url(../blocks/footer/footer.css);
@@ -38,3 +39,9 @@
 @import url(../blocks/popup/__button-edit/popup__button-edit.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+
+/* POPAP-MESTO */
+@import url(../blocks/popup-mesto/popup-mesto.css);
+@import url(../blocks/popup-mesto/__mask/popup-mesto__mask.css);
+@import url(../blocks/popup-mesto/__name/popup-mesto__name.css);
+@import url(../blocks/popup-mesto/__container/popup-mesto__container.css);
