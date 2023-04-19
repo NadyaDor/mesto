@@ -106,7 +106,7 @@ const renderImageElement = (imageElement) => {
 
 initialCards.forEach(function (image){
   const createNewCard = createCard(image);
-  cards.prepend(createNewCard);
+  cards.append(createNewCard);
 });
 
 // ОТКРЫТИЕ ПОПАПА КАРТОЧЕК
