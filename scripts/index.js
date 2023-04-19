@@ -1,19 +1,24 @@
-const editButton = document.querySelector(".profile__edit-button");
-const popupProfile = document.querySelector(".popup_profile");
-const popupCloseProfile = document.querySelector(".popup__close_profile");
-const popupNameInputTypeName = popupProfile.querySelector(".popup__name-input_type_name");
-const popupNameInputTypeAbout = popupProfile.querySelector(".popup__name-input_type_about");
-const popupFormProfile = popupProfile.querySelector(".popup__form_profile");
+// элементы PROFILE
+const editButtonProfile = document.querySelector(".profile__edit-button");
+const editPopupProfile = document.querySelector(".popup_profile");
+const closePopupProfile = document.querySelector(".popup__close_profile");
+const inputPopupProfileName = editPopupProfile.querySelector(".popup__name-input_type_name");
+const inputPopupProfileAbout = editPopupProfile.querySelector(".popup__name-input_type_about");
+const formPopupProfile = editPopupProfile.querySelector(".popup__form_profile");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
-const popupElement = document.querySelector(".popup_element");
-const addButton = document.querySelector(".profile__add-button");
-const popupCloseElement = document.querySelector(".popup__close_element");
-const popupFormElement = popupElement.querySelector(".popup__form_element");
-const popupNameInputTypePlace = popupElement.querySelector(".popup__name-input_type_place");
-const popupNameInputTypeLink = popupElement.querySelector(".popup__name-input_type_link");
-const popupMesto = document.querySelector(".popup-mesto");
-const popupCloseMesto = document.querySelector(".popup__close_mesto");
+// элементы CARD
+const addPopupCard = document.querySelector(".popup_element");
+const addButtonCard = document.querySelector(".profile__add-button");
+const closePopupCard = document.querySelector(".popup__close_element");
+const formPopupCard = addPopupCard.querySelector(".popup__form_element");
+const inputPopupCardPlace = addPopupCard.querySelector(".popup__name-input_type_place");
+const inputPopupCardLink = addPopupCard.querySelector(".popup__name-input_type_link");
+const templateCard = document.getElementById('element-template');
+const cards = document.querySelector('.elements');
+// элементы MESTO
+const showPopupMesto = document.querySelector(".popup-mesto");
+const closePopupMesto = document.querySelector(".popup__close_mesto");
 
 // ФУНКЦИЯ ОТКРЫТИЯ ЛЮБОГО ПОПАПА
 const openPopup = (popup) => {
@@ -26,106 +31,105 @@ const closePopup = (popup) => {
 }
 
 // ОТКРЫТИЕ ПОПАПА ПРОФИЛЯ
-editButton.addEventListener('click', () => {
-  openPopup(popupProfile);
+editButtonProfile.addEventListener('click', () => {
+  openPopup(editPopupProfile);
   // присваиваем в строках ввода значения из профайла
-  popupNameInputTypeName.value = profileName.textContent;
-  popupNameInputTypeAbout.value = profileAbout.textContent;
+  inputPopupProfileName.value = profileName.textContent;
+  inputPopupProfileAbout.value = profileAbout.textContent;
 });
 
 // ЗАКРЫТИЕ ПОПАПА ПРОФИЛЯ
-popupCloseProfile.addEventListener('click', () => {
-  closePopup(popupProfile);
+closePopupProfile.addEventListener('click', () => {
+  closePopup(editPopupProfile);
 });
 
 // КНОПКА СОХРАНИТЬ ИЗМЕНЕНИЯ В ПРОФИЛЕ. В скобки event
-popupFormProfile.addEventListener('submit', (event) => {
+formPopupProfile.addEventListener('submit', (event) => {
   event.preventDefault(); // обязательно при работе с формами, чтобы форма без ведома никуда не отправлялась
-  const name = popupNameInputTypeName.value;
-  const about = popupNameInputTypeAbout.value;
+  const name = inputPopupProfileName.value;
+  const about = inputPopupProfileAbout.value;
   // указываю куда сохранятся изменения
   profileName.textContent = name;
   profileAbout.textContent = about;
-  popupProfile.classList.remove('popup_opened');
+  closePopup(editPopupProfile);
 });
 
-// ТЕМПЛЕЙТ С КАРТОЧКАМИ
-const elementTemplate = document.getElementById('element-template');
-const elements = document.querySelector('.elements');
+ // ФУНКЦИЯ ПРОСМОТР ФОТО
+ function openImage(image) {
+  showPopupMesto.querySelector('.popup-mesto__name').textContent = image.name;
+  showPopupMesto.querySelector('.popup-mesto__mask').src = image.link;
+  showPopupMesto.querySelector('.popup-mesto__mask').alt = image.name;
+  openPopup(showPopupMesto);
+};
 
-// ФУНКЦИЯ СОЗДАНИЯ ЭЛЕМЕНТА
-const createImageElement = (imageData) => {
-  const imageElement = elementTemplate.content.querySelector('.element').cloneNode(true);
-  const elementBasket = imageElement.querySelector('.element__basket');
-  const elementPlace = imageElement.querySelector('.element__place');
-  const elementMask = imageElement.querySelector('.element__mask');
+// ЗАКРЫТИЕ ПРОСМОТРА ФОТО
+closePopupMesto.addEventListener('click', () => {
+  closePopup(showPopupMesto);
+});
 
-  elementPlace.innerHTML = imageData.name;
-  elementMask.src = imageData.link;
-  elementMask.alt = imageData.name;
+// ФУНКЦИЯ ДЛЯ КАРТОЧЕК
+// 
+const createCard = (imageData) => {
+  const imageCard = templateCard.content.querySelector('.element').cloneNode(true);
+  const cardBasket = imageCard.querySelector('.element__basket');
+  const cardPlace = imageCard.querySelector('.element__place');
+  const cardMask = imageCard.querySelector('.element__mask');
 
-  // корзина (этот вариант кода из совета из чата)
-  elementBasket.addEventListener('click', function () {
-    const elementDelete = elementBasket.closest('.element');
-    elementDelete.remove();
+  cardPlace.textContent = imageData.name;
+  cardMask.src = imageData.link;
+  cardMask.alt = imageData.name;
+
+  // функция корзина (этот вариант кода из совета из чата)
+  cardBasket.addEventListener('click', function () {
+    const deleteCard = cardBasket.closest('.element');
+    deleteCard.remove();
   });
 
-  // лайки (этот вариант кода из вебинара)
-  const elementHurt = imageElement.querySelector('.element__hurt');
-  const elementLike = () => {
-    elementHurt.classList.toggle('element__hurt_active');
+  // функция лайки (этот вариант кода из вебинара)
+  const cardHurt = imageCard.querySelector('.element__hurt');
+  const cardLike = () => {
+    cardHurt.classList.toggle('element__hurt_active');
   };
-  elementHurt.addEventListener('click', elementLike);
+    cardHurt.addEventListener('click', cardLike);
 
-  // увеличивает фото, функцию написала внизу
-  imageElement.querySelector('.element__mask').addEventListener('click', () => openImage(imageData));
+  // просмотр фото (функция написана выше)
+  imageCard.querySelector('.element__mask').addEventListener('click', () => openImage(imageData));
   
-  return imageElement
+  return imageCard;
+
 };
 
 // ФУНКЦИЯ ВСТАВЛЯЕТ ЭЛЕМЕНТЫ
 const renderImageElement = (imageElement) => {
-  elements.prepend(imageElement);
+  cards.prepend(imageElement);
 };
 
-initialCards.forEach((image) => {
-  renderImageElement(createImageElement(image));
+initialCards.forEach(function (image){
+  const createNewCard = createCard(image);
+  cards.prepend(createNewCard);
 });
 
 // ОТКРЫТИЕ ПОПАПА КАРТОЧЕК
-addButton.addEventListener('click', () => {
-  openPopup(popupElement);
+addButtonCard.addEventListener('click', () => {
+  openPopup(addPopupCard);
 });
 
 // ЗАКРЫТИЕ ПОПАПА КАРТОЧЕК
-popupCloseElement.addEventListener('click', () => {
-  closePopup(popupElement);
+closePopupCard.addEventListener('click', () => {
+  closePopup(addPopupCard);
 });
 
 // КНОПКА СОХРАНЕНИЯ НОВОЙ КАРТОЧКИ
-popupFormElement.addEventListener('submit', (event) => {
+formPopupCard.addEventListener('submit', (event) => {
   event.preventDefault();
-  const name = popupNameInputTypePlace.value;
-  const link = popupNameInputTypeLink.value;
+  const name = inputPopupCardPlace.value;
+  const link = inputPopupCardLink.value;
 
   const imageData = {
     name,
     link,
   };
 
-  renderImageElement(createImageElement(imageData));
-  popupElement.classList.remove('popup_opened');
-});
-
-// ФУНКЦИЯ ДЛЯ УВЕЛИЧЕНИЯ ФОТО
-function openImage(imageDate) {
-  popupMesto.querySelector('.popup-mesto__name').textContent = imageDate.name;
-  popupMesto.querySelector('.popup-mesto__mask').src = imageDate.link;
-  popupMesto.querySelector('.popup-mesto__mask').alt = imageDate.name;
-  openPopup(popupMesto);
-};
-
-// ЗАКРЫТИЕ ПОПАПА УВЕЛИЧЕННЫХ ФОТО
-popupCloseMesto.addEventListener('click', () => {
-  closePopup(popupMesto);
+  renderImageElement(createCard(imageData));
+  closePopup(addPopupCard);
 });

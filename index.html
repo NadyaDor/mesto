@@ -38,7 +38,7 @@
       <div class="popup__container">
         <button class="popup__close popup__close_profile" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form popup__form_profile">
+        <form class="popup__form popup__form_profile" name="form">
           <input class="popup__name-input popup__name-input_type_name" type="text" placeholder="Введите ваше имя" name="name"/>
           <input class="popup__name-input popup__name-input_type_about" type="text" placeholder="Введите ваш статус" name="about"/>
           <button class="popup__button-edit" type="submit">Сохранить</button>
@@ -50,7 +50,7 @@
       <div class="popup__container">
         <button class="popup__close popup__close_element" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form popup__form_element">
+        <form class="popup__form popup__form_element" name="form">
           <input class="popup__name-input popup__name-input_type_place" type="text" placeholder="Название" name="name"/>
           <input class="popup__name-input popup__name-input_type_link" type="text" placeholder="Ссылка на картинку" name="link"/>
           <button class="popup__button-edit" type="submit">Создать</button>
@@ -59,8 +59,8 @@
     </section>
 
     <section class="popup popup-mesto">
-      <div class="popup-mesto__container">
-        <button class="popup__close popup__close_mesto"></button>
+      <div class="popup-container">
+        <button class="popup__close popup__close_mesto" type="button"></button>
         <img class="popup-mesto__mask" src="#" alt="#">
         <p class="popup-mesto__name"></p>
       </div>
