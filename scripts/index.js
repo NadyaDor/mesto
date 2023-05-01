@@ -2,35 +2,55 @@
 const editButtonProfile = document.querySelector(".profile__edit-button");
 const editPopupProfile = document.querySelector(".popup_profile");
 const closePopupProfile = document.querySelector(".popup__close_profile");
-const inputPopupProfileName = editPopupProfile.querySelector(".popup__name-input_type_name");
-const inputPopupProfileAbout = editPopupProfile.querySelector(".popup__name-input_type_about");
+const inputPopupProfileName = editPopupProfile.querySelector(".popup__input_type_name");
+const inputPopupProfileAbout = editPopupProfile.querySelector(".popup__input_type_about");
 const formPopupProfile = editPopupProfile.querySelector(".popup__form_profile");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 // элементы CARD
-const addPopupCard = document.querySelector(".popup_element");
+const addPopupCard = document.querySelector(".popup_card");
 const addButtonCard = document.querySelector(".profile__add-button");
-const closePopupCard = document.querySelector(".popup__close_element");
-const formPopupCard = addPopupCard.querySelector(".popup__form_element");
-const inputPopupCardPlace = addPopupCard.querySelector(".popup__name-input_type_place");
-const inputPopupCardLink = addPopupCard.querySelector(".popup__name-input_type_link");
-const templateCard = document.getElementById('element-template');
-const cards = document.querySelector('.elements');
+const closePopupCard = document.querySelector(".popup__close_card");
+const formPopupCard = addPopupCard.querySelector(".popup__form_card");
+const inputPopupCardPlace = addPopupCard.querySelector(".popup__input_type_place");
+const inputPopupCardLink = addPopupCard.querySelector(".popup__input_type_link");
+const templateCard = document.getElementById('card-template');
+const cards = document.querySelector('.cards');
 // элементы MESTO
 const showPopupMesto = document.querySelector(".popup-mesto");
 const closePopupMesto = document.querySelector(".popup__close_mesto");
+//элементы ESC
+const escKey = 27;
 
-// ФУНКЦИЯ ОТКРЫТИЯ ЛЮБОГО ПОПАПА
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened')
-}
+// закрытие по ESC
+function closeEsc(evt) {
+  if (evt.keyCode === escKey) {
+    closePopup(document.querySelector('.popup_opened'));
+  };
+};
 
-// ФУНКЦИЯ ЗАКРЫТИЯ ЛЮБОГО ПОПАПА
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened')
-}
+// закрытие по ОВЕРЛЕЙ
+function closeByOverlay(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  };
+};
 
-// ОТКРЫТИЕ ПОПАПА ПРОФИЛЯ
+// открытие ЛЮБОГО ПОПАПА
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeEsc);
+  document.addEventListener('mousedown', closeByOverlay);
+};
+
+// закрытие ЛЮБОГО ПОПАПА
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.addEventListener('keydown', closeEsc);
+  document.addEventListener('mousedown', closeByOverlay);
+};
+
+// открытие ПОПАПА ПРОФИЛЯ
 editButtonProfile.addEventListener('click', () => {
   openPopup(editPopupProfile);
   // присваиваем в строках ввода значения из профайла
@@ -38,7 +58,7 @@ editButtonProfile.addEventListener('click', () => {
   inputPopupProfileAbout.value = profileAbout.textContent;
 });
 
-// ЗАКРЫТИЕ ПОПАПА ПРОФИЛЯ
+// закрытие ПОПАПА ПРОФИЛЯ
 closePopupProfile.addEventListener('click', () => {
   closePopup(editPopupProfile);
 });
@@ -54,7 +74,7 @@ formPopupProfile.addEventListener('submit', (event) => {
   closePopup(editPopupProfile);
 });
 
- // ФУНКЦИЯ ПРОСМОТР ФОТО
+ // ПРОСМОТР ФОТО
  function openImage(image) {
   showPopupMesto.querySelector('.popup-mesto__name').textContent = image.name;
   showPopupMesto.querySelector('.popup-mesto__mask').src = image.link;
@@ -67,13 +87,13 @@ closePopupMesto.addEventListener('click', () => {
   closePopup(showPopupMesto);
 });
 
-// ФУНКЦИЯ ДЛЯ КАРТОЧЕК
+// ДЛЯ КАРТОЧЕК
 // 
-const createCard = (imageData) => {
-  const imageCard = templateCard.content.querySelector('.element').cloneNode(true);
-  const cardBasket = imageCard.querySelector('.element__basket');
-  const cardPlace = imageCard.querySelector('.element__place');
-  const cardMask = imageCard.querySelector('.element__mask');
+function createCard(imageData) {
+  const imageCard = templateCard.content.querySelector('.card').cloneNode(true);
+  const cardBasket = imageCard.querySelector('.card__basket');
+  const cardPlace = imageCard.querySelector('.card__place');
+  const cardMask = imageCard.querySelector('.card__mask');
 
   cardPlace.textContent = imageData.name;
   cardMask.src = imageData.link;
@@ -81,29 +101,30 @@ const createCard = (imageData) => {
 
   // функция корзина (этот вариант кода из совета из чата)
   cardBasket.addEventListener('click', function () {
-    const deleteCard = cardBasket.closest('.element');
+    const deleteCard = cardBasket.closest('.card');
     deleteCard.remove();
   });
 
   // функция лайки (этот вариант кода из вебинара)
-  const cardHurt = imageCard.querySelector('.element__hurt');
-  const cardLike = () => {
-    cardHurt.classList.toggle('element__hurt_active');
+  const cardHurt = imageCard.querySelector('.card__hurt');
+  function cardLike() {
+    cardHurt.classList.toggle('card__hurt_active');
   };
     cardHurt.addEventListener('click', cardLike);
 
   // просмотр фото (функция написана выше)
-  imageCard.querySelector('.element__mask').addEventListener('click', () => openImage(imageData));
+  imageCard.querySelector('.card__mask').addEventListener('click', () => openImage(imageData));
   
   return imageCard;
 
 };
 
-// ФУНКЦИЯ ВСТАВЛЯЕТ ЭЛЕМЕНТЫ
-const renderImageElement = (imageElement) => {
-  cards.prepend(imageElement);
+// ДОБАВЛЯЕТ ЭЛЕМЕНТ В НАЧАЛО БЛОКА
+function renderImageCard(imageCard) {
+  cards.prepend(imageCard);
 };
 
+// ПРОХОД ПО МАССИВУ forEaclh
 initialCards.forEach(function (image){
   const createNewCard = createCard(image);
   cards.append(createNewCard);
@@ -130,6 +151,6 @@ formPopupCard.addEventListener('submit', (event) => {
     link,
   };
 
-  renderImageElement(createCard(imageData));
+  renderImageCard(createCard(imageData));
   closePopup(addPopupCard);
 });

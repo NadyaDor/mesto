@@ -16,15 +16,15 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 
-/* ELEMENTS */
-@import url(../blocks/elements/elements.css);
-@import url(../blocks/element/element.css);
-@import url(../blocks/element/__mask/element__mask.css);
-@import url(../blocks/element/__about/element__about.css);
-@import url(../blocks/element/__place/element__place.css);
-@import url(../blocks/element/__hurt/element__hurt.css);
-@import url(../blocks/element/__hurt/_active/element__hurt_active.css);
-@import url(../blocks/element/__basket/element__basket.css);
+/* CARDS */
+@import url(../blocks/cards/cards.css);
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__about/card__about.css);
+@import url(../blocks/card/__basket/card__basket.css);
+@import url(../blocks/card/__hurt/card__hurt.css);
+@import url(../blocks/card/__hurt/_active/card__hurt_active.css);
+@import url(../blocks/card/__mask/card__mask.css);
+@import url(../blocks/card/__place/card__place.css);
 
 /* FOOTER */
 @import url(../blocks/footer/footer.css);
@@ -35,10 +35,14 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__title/popup__title.css);
-@import url(../blocks/popup/__name-input/popup__name-input.css);
+@import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__button-edit/popup__button-edit.css);
+@import url(../blocks/popup/__button-edit/_inactive/popup__button-edit_inactive.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__input-error/popup__input-error.css);
+@import url(../blocks/popup/__input/_error/popup__input_error.css);
+@import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
 
 /* POPAP-MESTO */
 @import url(../blocks/popup-mesto/popup-mesto.css);
