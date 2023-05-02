@@ -1,4 +1,4 @@
-.element__about {
+.card__about {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -1,4 +1,4 @@
-.elements {
+.cards {
   display: grid;
   grid-template-columns: repeat(3, 282px);
   grid-template-rows: auto;
@@ -10,13 +10,13 @@
 }
   
 @media screen and (max-width: 899px) {
-  .elements {
+  .cards {
     grid-template-columns: repeat(2, 282px);
   }
 }
   
 @media screen and (max-width: 619px) {
-  .elements {
+  .cards {
     display: flex;
     flex-direction: column;
   }
