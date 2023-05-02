@@ -34,35 +34,35 @@
     <!-- ВСПЛЫВАЮЩИЕ ОКНА -->
     <section class="popup popup_profile">
       <div class="popup__container">
-        <button class="popup__close popup__close_profile" type="button"></button>
+        <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form popup__form_profile" name="form" novalidate>
           <input class="popup__input popup__input_type_name" type="text" minlength="2" maxlength="40" placeholder="Введите ваше имя" name="name" required/>
           <span class="popup__input-error"></span>
           <input class="popup__input popup__input_type_about" type="text" minlength="2" maxlength="200" placeholder="Введите ваш статус" name="about" required/>
           <span class="popup__input-error"></span>
-          <button class="popup__button-edit" type="submit">Сохранить</button>
+          <button class="popup__button-edit" type="submit" disabled="true">Сохранить</button>
         </form>
       </div>
     </section>
 
     <section class="popup popup_card">
       <div class="popup__container">
-        <button class="popup__close popup__close_card" type="button"></button>
+        <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form popup__form_card" name="form" novalidate>
           <input class="popup__input popup__input_type_place" type="text" minlength="2" maxlength="30" placeholder="Название" name="name"required/>
           <span class="popup__input-error"></span>
           <input class="popup__input popup__input_type_link" type="url" placeholder="Ссылка на картинку" name="link" required/>
           <span class="popup__input-error"></span>
-          <button class="popup__button-edit" type="submit">Создать</button>
+          <button class="popup__button-edit" type="submit" disabled="true">Создать</button>
         </form>
       </div>
     </section>
 
     <section class="popup popup-mesto">
       <div class="popup-container">
-        <button class="popup__close popup__close_mesto" type="button"></button>
+        <button class="popup__close" type="button"></button>
         <img class="popup-mesto__mask" src="#" alt="#">
         <p class="popup-mesto__name"></p>
       </div>
@@ -79,7 +79,7 @@
       </div>
     </template>
     <script src="scripts/cards.js" defer></script>
-    <script src="scripts/validate.js" defer></script>
-    <script src="scripts/index.js" defer></script>
+    <script src="scripts/validate.js" type="module" defer></script>
+    <script src="scripts/index.js" type="module" defer></script>
   </body>
 </html>

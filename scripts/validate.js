@@ -1,58 +1,69 @@
+const enableValidationObj = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-edit',
+  inactiveButtonClass: 'popup__button-edit_inactive',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__input-error_active'
+}
+
 // покажет ошибку
-function showInpurError(formElemetnt, inputElement, errorMessage) {
+function showInpurError(formElemetnt, inputElement, errorMessage, enableValidationObj) {
   const errorElement = formElemetnt.querySelector('.popup__input-error');
-  inputElement.classList.add('popup__input_error');
+  inputElement.classList.add(enableValidationObj.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
+  errorElement.classList.add(enableValidationObj.errorClass);
 };
 
 // скрывает элемент ошибки
-function hideInputError(formElemetnt, inputElement) {
+function hideInputError(formElemetnt, inputElement, enableValidationObj) {
   const errorElement = formElemetnt.querySelector('.popup__input-error');
-  inputElement.classList.remove('popup__input_error');
+  inputElement.classList.remove(enableValidationObj.inputErrorClass);
   errorElement.textContent = '';
-  errorElement.classList.remove('popup__input-error_active');
+  errorElement.classList.remove(enableValidationObj.errorClass);
 };
 
 // проверим валидность
-function isValid(formElemetnt, inputElement) {
+function isValid(formElemetnt, inputElement, enableValidationObj) {
   if (!inputElement.validity.valid) {
-    showInpurError(formElemetnt, inputElement, inputElement.validationMessage);
+    showInpurError(formElemetnt, inputElement, inputElement.validationMessage, enableValidationObj);
   } else {
-    hideInputError(formElemetnt, inputElement);
+    hideInputError(formElemetnt, inputElement, enableValidationObj);
   }
 };
 
 // отключение и включение кнопки
-function toggleBattonState(inputList, buttonElement) {
+function toggleBattonState(inputList, buttonElement, enableValidationObj) {
     if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add('popup__button-edit_inactive');
+      buttonElement.classList.add(enableValidationObj.inactiveButtonClass);
+      buttonElement.setAttribute('disabled',true);
     } else {
-      buttonElement.classList.remove('popup__button-edit_inactive');
+      buttonElement.classList.remove(enableValidationObj.inactiveButtonClass);
+      buttonElement.removeAttribute('disabled');
     }
   };
 
 // принимает элемент формы и добавляет её полям нужные обработчики
-function setEventListernes (formElemetnt) {
-  const inputList = Array.from(formElemetnt.querySelectorAll('.popup__input'));
-  const buttonElement = formElemetnt.querySelector('.popup__button-edit');
-  toggleBattonState(inputList, buttonElement);
+function setEventListernes (formElemetnt, enableValidationObj) {
+  const inputList = Array.from(formElemetnt.querySelectorAll(enableValidationObj.inputSelector));
+  const buttonElement = formElemetnt.querySelector(enableValidationObj.submitButtonSelector);
+  toggleBattonState(inputList, buttonElement, enableValidationObj);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      isValid(formElemetnt, inputElement);
-      toggleBattonState(inputList, buttonElement);
+      isValid(formElemetnt, inputElement, enableValidationObj);
+      toggleBattonState(inputList, buttonElement, enableValidationObj);
     });
   });
 };
 
 // найдет и переберет все формы на странице
-function enableValidation () {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+function enableValidation (enableValidationObj) {
+  const formList = Array.from(document.querySelectorAll(enableValidationObj.formSelector));
   formList.forEach((formElemetnt) => {
     formElemetnt.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListernes(formElemetnt);
+    setEventListernes(formElemetnt, enableValidationObj);
   });
 };
 
@@ -63,4 +74,4 @@ function hasInvalidInput(inputList) {
   });
 };
 
-enableValidation();
+enableValidation(enableValidationObj);

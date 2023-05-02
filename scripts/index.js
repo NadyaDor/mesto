@@ -1,7 +1,6 @@
 // элементы PROFILE
 const editButtonProfile = document.querySelector(".profile__edit-button");
 const editPopupProfile = document.querySelector(".popup_profile");
-const closePopupProfile = document.querySelector(".popup__close_profile");
 const inputPopupProfileName = editPopupProfile.querySelector(".popup__input_type_name");
 const inputPopupProfileAbout = editPopupProfile.querySelector(".popup__input_type_about");
 const formPopupProfile = editPopupProfile.querySelector(".popup__form_profile");
@@ -10,7 +9,6 @@ const profileAbout = document.querySelector(".profile__about");
 // элементы CARD
 const addPopupCard = document.querySelector(".popup_card");
 const addButtonCard = document.querySelector(".profile__add-button");
-const closePopupCard = document.querySelector(".popup__close_card");
 const formPopupCard = addPopupCard.querySelector(".popup__form_card");
 const inputPopupCardPlace = addPopupCard.querySelector(".popup__input_type_place");
 const inputPopupCardLink = addPopupCard.querySelector(".popup__input_type_link");
@@ -18,7 +16,8 @@ const templateCard = document.getElementById('card-template');
 const cards = document.querySelector('.cards');
 // элементы MESTO
 const showPopupMesto = document.querySelector(".popup-mesto");
-const closePopupMesto = document.querySelector(".popup__close_mesto");
+const mestoName = document.querySelector('.popup-mesto__name');
+const mestoMask = document.querySelector('.popup-mesto__mask');
 //элементы ESC
 const escKey = 27;
 
@@ -46,9 +45,20 @@ function openPopup(popup) {
 // закрытие ЛЮБОГО ПОПАПА
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.addEventListener('keydown', closeEsc);
-  document.addEventListener('mousedown', closeByOverlay);
+  document.removeEventListener('keydown', closeEsc);
+  document.removeEventListener('mousedown', closeByOverlay);
 };
+
+// закрытие крестиками всех попапов
+// находим все крестики проекта по универсальному селектору
+const closeButtons = document.querySelectorAll('.popup__close');
+
+closeButtons.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап 
+  const popup = button.closest('.popup');
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener('click', () => closePopup(popup));
+});
 
 // открытие ПОПАПА ПРОФИЛЯ
 editButtonProfile.addEventListener('click', () => {
@@ -56,11 +66,6 @@ editButtonProfile.addEventListener('click', () => {
   // присваиваем в строках ввода значения из профайла
   inputPopupProfileName.value = profileName.textContent;
   inputPopupProfileAbout.value = profileAbout.textContent;
-});
-
-// закрытие ПОПАПА ПРОФИЛЯ
-closePopupProfile.addEventListener('click', () => {
-  closePopup(editPopupProfile);
 });
 
 // КНОПКА СОХРАНИТЬ ИЗМЕНЕНИЯ В ПРОФИЛЕ. В скобки event
@@ -76,16 +81,11 @@ formPopupProfile.addEventListener('submit', (event) => {
 
  // ПРОСМОТР ФОТО
  function openImage(image) {
-  showPopupMesto.querySelector('.popup-mesto__name').textContent = image.name;
-  showPopupMesto.querySelector('.popup-mesto__mask').src = image.link;
-  showPopupMesto.querySelector('.popup-mesto__mask').alt = image.name;
+  mestoName.textContent = image.name;
+  mestoMask.src = image.link;
+  mestoMask.alt = image.name;
   openPopup(showPopupMesto);
 };
-
-// ЗАКРЫТИЕ ПРОСМОТРА ФОТО
-closePopupMesto.addEventListener('click', () => {
-  closePopup(showPopupMesto);
-});
 
 // ДЛЯ КАРТОЧЕК
 // 
@@ -133,15 +133,12 @@ initialCards.forEach(function (image){
 // ОТКРЫТИЕ ПОПАПА КАРТОЧЕК
 addButtonCard.addEventListener('click', () => {
   openPopup(addPopupCard);
-});
-
-// ЗАКРЫТИЕ ПОПАПА КАРТОЧЕК
-closePopupCard.addEventListener('click', () => {
-  closePopup(addPopupCard);
+ 
 });
 
 // КНОПКА СОХРАНЕНИЯ НОВОЙ КАРТОЧКИ
 formPopupCard.addEventListener('submit', (event) => {
+  formPopupCard.reset();
   event.preventDefault();
   const name = inputPopupCardPlace.value;
   const link = inputPopupCardLink.value;
