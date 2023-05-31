@@ -1,3 +1,5 @@
+export {FormValidator}
+
 const enableValidationObj = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -7,71 +9,76 @@ const enableValidationObj = {
   errorClass: 'popup__input-error_active'
 }
 
-// покажет ошибку
-function showInpurError(formElemetnt, inputElement, errorMessage, enableValidationObj) {
-  const errorElement = formElemetnt.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add(enableValidationObj.inputErrorClass);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(enableValidationObj.errorClass);
-};
-
-// скрывает элемент ошибки
-function hideInputError(formElemetnt, inputElement, enableValidationObj) {
-  const errorElement = formElemetnt.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(enableValidationObj.inputErrorClass);
-  errorElement.textContent = '';
-  errorElement.classList.remove(enableValidationObj.errorClass);
-};
-
-// проверим валидность
-function isValid(formElemetnt, inputElement, enableValidationObj) {
-  if (!inputElement.validity.valid) {
-    showInpurError(formElemetnt, inputElement, inputElement.validationMessage, enableValidationObj);
-  } else {
-    hideInputError(formElemetnt, inputElement, enableValidationObj);
+class FormValidator {
+  constructor(enableValidationObj) {
+    this.enableValidationObj = enableValidationObj;
+    this._form = formSelector;
+    this._input = Array.from(this.form.querySelectorAll(this.enableValidationObj.inputSelector));
+    this._button = submitButtonSelector;
   }
-};
 
-// отключение и включение кнопки
-function toggleBattonState(inputList, buttonElement, enableValidationObj) {
-    if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add(enableValidationObj.inactiveButtonClass);
-      buttonElement.setAttribute('disabled',true);
+  // покажет ошибку
+  _showInputError(input, errorMessage) {
+    const errorElement = this._form.querySelector(`#${input.id}-error`);
+    input.classList.add(this.enableValidationObj.inputErrorClass);
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add(this.enableValidationObj.errorClass);
+  }
+
+  // скроет ошибку
+  _hideInputError(input) {
+    const errorElement = this._form.querySelector(`#${input.id}-error`);
+    input.classList.remove(this.enableValidationObj.inputErrorClass);
+    errorElement.textContent = '';
+    errorElement.classList.remove(this.enableValidationObj.errorClass);
+  }
+
+  // проверит валидность
+  _isValid(input) {
+    if (!input.validity.valid) {
+      this._showInputError(input, input.validationMessage);
     } else {
-      buttonElement.classList.remove(enableValidationObj.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+      this._hideInputError(input);
     }
-  };
+  }
 
-// принимает элемент формы и добавляет её полям нужные обработчики
-function setEventListernes (formElemetnt, enableValidationObj) {
-  const inputList = Array.from(formElemetnt.querySelectorAll(enableValidationObj.inputSelector));
-  const buttonElement = formElemetnt.querySelector(enableValidationObj.submitButtonSelector);
-  toggleBattonState(inputList, buttonElement, enableValidationObj);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      isValid(formElemetnt, inputElement, enableValidationObj);
-      toggleBattonState(inputList, buttonElement, enableValidationObj);
-    });
-  });
-};
+  // проверит наличие невалидного поля
+  _hasInvalidInput() {
+    return this.input.some((input) => {
+      return !input.validity.valid;
+    })
+  }
 
-// найдет и переберет все формы на странице
-function enableValidation (enableValidationObj) {
-  const formList = Array.from(document.querySelectorAll(enableValidationObj.formSelector));
-  formList.forEach((formElemetnt) => {
-    formElemetnt.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-    setEventListernes(formElemetnt, enableValidationObj);
-  });
-};
+  // отключит и включит кнопку
+  _toggleBattonState() {
+    if (this._hasInvalidInput()) {
+      this._button.classList.add(this.enableValidationObj.inactiveButtonClass);
+      this._button.setAttribute('disabled',true);
+    } else {
+      this._button.classList.remove(this.enableValidationObj.inactiveButtonClass);
+      this._button.removeAttribute('disabled');
+    }
+  }
 
-// проверка наличия невалидного поля
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
+  // принимает элемент формы и добавляет её полям нужные обработчики
+  _setEventListernes() {
+    this._toggleBattonState();
+    this._input.forEach((input) => {
+      input.addEventListener('input', () => {
+        this._isValid(input);
+        this._toggleBattonState();
+      })
+    })
+  }
 
-enableValidation(enableValidationObj);
+  // находит все формы на странице
+  enableValidation() {
+    this.form = Array.form(this.form.querySelectorAll(this.enableValidationObj.formSelector));
+    this.form.forEach((form) => {
+      form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+      })
+      this._setEventListernes();
+    })
+  }
+}
