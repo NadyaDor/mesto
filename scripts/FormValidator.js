@@ -1,25 +1,17 @@
 export {FormValidator}
 
-const enableValidationObj = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-edit',
-  inactiveButtonClass: 'popup__button-edit_inactive',
-  inputErrorClass: 'popup__input_error',
-  errorClass: 'popup__input-error_active'
-}
-
 class FormValidator {
-  constructor(enableValidationObj) {
+  constructor(enableValidationObj, popupElement) {
+    this._element = popupElement;
     this.enableValidationObj = enableValidationObj;
-    this._form = formSelector;
-    this._input = Array.from(this.form.querySelectorAll(this.enableValidationObj.inputSelector));
-    this._button = submitButtonSelector;
+    this._input = Array.from(this._element.querySelectorAll(this.enableValidationObj.inputSelector));
+    this._button = this.enableValidationObj.submitButtonSelector;
+    // console.log('submitButtonSelector:', this._button); // ПРОВЕРКА
   }
 
   // покажет ошибку
   _showInputError(input, errorMessage) {
-    const errorElement = this._form.querySelector(`#${input.id}-error`);
+    const errorElement = this._element.querySelector(`#${input.id}-error`);
     input.classList.add(this.enableValidationObj.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this.enableValidationObj.errorClass);
@@ -27,7 +19,7 @@ class FormValidator {
 
   // скроет ошибку
   _hideInputError(input) {
-    const errorElement = this._form.querySelector(`#${input.id}-error`);
+    const errorElement = this._element.querySelector(`#${input.id}-error`);
     input.classList.remove(this.enableValidationObj.inputErrorClass);
     errorElement.textContent = '';
     errorElement.classList.remove(this.enableValidationObj.errorClass);
@@ -35,6 +27,7 @@ class FormValidator {
 
   // проверит валидность
   _isValid(input) {
+    // console.log('input:', input); // ПРОВЕРКА
     if (!input.validity.valid) {
       this._showInputError(input, input.validationMessage);
     } else {
@@ -44,16 +37,18 @@ class FormValidator {
 
   // проверит наличие невалидного поля
   _hasInvalidInput() {
-    return this.input.some((input) => {
+    // console.log('_input:', this._input); // ПРОВЕРКА
+    return this._input.some((input) => {
       return !input.validity.valid;
     })
   }
 
   // отключит и включит кнопку
   _toggleBattonState() {
+    // console.log('inactiveButtonClass:', this.enableValidationObj.inactiveButtonClass); // ПРОВЕРКА
     if (this._hasInvalidInput()) {
       this._button.classList.add(this.enableValidationObj.inactiveButtonClass);
-      this._button.setAttribute('disabled',true);
+      this._button.setAttribute('disabled', true);
     } else {
       this._button.classList.remove(this.enableValidationObj.inactiveButtonClass);
       this._button.removeAttribute('disabled');
@@ -62,6 +57,7 @@ class FormValidator {
 
   // принимает элемент формы и добавляет её полям нужные обработчики
   _setEventListernes() {
+    // console.log('_setEventListernes() called'); // ПРОВЕРКА
     this._toggleBattonState();
     this._input.forEach((input) => {
       input.addEventListener('input', () => {
@@ -73,12 +69,11 @@ class FormValidator {
 
   // находит все формы на странице
   enableValidation() {
-    this.form = Array.form(this.form.querySelectorAll(this.enableValidationObj.formSelector));
-    this.form.forEach((form) => {
-      form.addEventListener('submit', (evt) => {
+    // console.log('enableValidation() called'); // ПРОВЕРКА
+    // this._element = this._element.querySelector('.popup__form');
+    this._element.addEventListener('submit', (evt) => {
         evt.preventDefault();
       })
       this._setEventListernes();
-    })
   }
 }
