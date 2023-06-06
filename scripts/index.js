@@ -118,11 +118,17 @@ initialCards.forEach(function (item) {
   const card = new Card(item, '.card-template_type_default'); // создание экземпляра карточки
   const cardElement = card.generateCard(); // создание карточки и возврат наружу
   document.querySelector('.cards').append(cardElement); // добавление в DOM
+  cardElement.querySelector('.card__mask').addEventListener('click', function() {
+    showMesto(item);
+  });
 })
 
 function createCard (item) {
   const card = new Card(item, '.card-template_type_default'); // создание экземпляра карточки
   const cardElement = card.generateCard();
+  cardElement.querySelector('.card__mask').addEventListener('click', function() {
+    showMesto(item);
+  })
   return cardElement;
  }
 
@@ -151,20 +157,13 @@ formPopupCard.addEventListener('submit', (event) => {
   closePopup(addPopupCard);
 });
 
-// // ПРОСМОТР ФОТО
-// function showMesto(data) {
-//   mestoName.textContent = data.name;
-//   mestoMask.src = data.link;
-//   mestoMask.alt = data.name;
-//   openPopup(showPopupMesto);
-// }
-
-// const cardMesto = templateCard.content.querySelector('.card').cloneNode(true);
-// cardMesto.querySelector('.card__mask').addEventListener('click', () => {
-//   showMesto(data);
-// });
-
-
+// ПРОСМОТР ФОТО
+function showMesto(data) {
+  mestoName.textContent = data.name;
+  mestoMask.src = data.link;
+  mestoMask.alt = data.name;
+  openPopup(showPopupMesto);
+}
 
 const enableValidationObj = {
   formSelector: '.popup__form',
@@ -176,3 +175,4 @@ const enableValidationObj = {
 }
 
 new FormValidator(enableValidationObj, addPopupCard).enableValidation();
+new FormValidator(enableValidationObj, editPopupProfile).enableValidation();

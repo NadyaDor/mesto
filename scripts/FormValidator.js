@@ -5,7 +5,7 @@ class FormValidator {
     this._element = popupElement;
     this.enableValidationObj = enableValidationObj;
     this._input = Array.from(this._element.querySelectorAll(this.enableValidationObj.inputSelector));
-    this._button = this.enableValidationObj.submitButtonSelector;
+    this._button = this._element.querySelector(this.enableValidationObj.submitButtonSelector);
     // console.log('submitButtonSelector:', this._button); // ПРОВЕРКА
   }
 
@@ -45,8 +45,8 @@ class FormValidator {
 
   // отключит и включит кнопку
   _toggleBattonState() {
-    // console.log('inactiveButtonClass:', this.enableValidationObj.inactiveButtonClass); // ПРОВЕРКА
     if (this._hasInvalidInput()) {
+      // console.log('submitButtonSelector:', this._button); // ПРОВЕРКА
       this._button.classList.add(this.enableValidationObj.inactiveButtonClass);
       this._button.setAttribute('disabled', true);
     } else {

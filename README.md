@@ -8,5 +8,6 @@ CSS
 Flex
 Grid
 JavaScript
+ООП
 
 Адрес сайта: https://nadyador.github.io/mesto/

@@ -1,4 +1,4 @@
-export { Card }
+export {Card}
 
 class Card {
   constructor(data, templateSelector) { // конструктор получает объект
@@ -20,6 +20,7 @@ class Card {
     this._element = this._getTemplate(); // здесь запишем разметку
     this._setEventListeners();
     this._element.querySelector('.card__mask').src = this._link; // добавление данных
+    this._element.querySelector('.card__mask').alt = this._name;
     this._element.querySelector('.card__place').textContent = this._name;
     return this._element // возврат элемента наружу
   }
