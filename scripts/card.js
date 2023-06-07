@@ -1,11 +1,11 @@
-import {showMesto} from './showMesto.js' //_________________
 export {Card}
 
 class Card {
-  constructor(data, templateSelector) { // конструктор получает объект
+  constructor(data, templateSelector, showMesto) { // конструктор получает объект
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._showMesto = showMesto;
   }
 
   _getTemplate() { // это метод, который возвращает разметку классу Card, забирает ее из HTML и клонирует элемент
@@ -34,7 +34,7 @@ class Card {
       this._cardBasket();
     })
     this._element.querySelector('.card__mask').addEventListener('click', () => { // ________________________
-      showMesto(this._link, this._name, this._templateSelector); 
+      this._cardZoom(); 
     }); 
   }
 
@@ -45,5 +45,9 @@ class Card {
   _cardBasket() { // метод корзина
     this._element.querySelector('.card__basket').closest('.card').remove()
     this._element = null;
+  }
+
+  _cardZoom() {
+    this._showMesto()
   }
 }

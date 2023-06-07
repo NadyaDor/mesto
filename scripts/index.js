@@ -1,4 +1,3 @@
-export {openPopup}
 import {initialCards} from './initialCards.js'
 import {Card} from './card.js'
 import {FormValidator} from './FormValidator.js'
@@ -92,9 +91,9 @@ function createCard (item) {
   const card = new Card(item, '.card-template_type_default'); // создание экземпляра карточки
   const cardElement = card.generateCard(); // создание карточки и возврат наружу
   document.querySelector('.cards').append(cardElement); // добавление в DOM
-  // cards.addEventListener('click', function() {
-    // showMesto(item);
-  // })
+  cards.addEventListener('click', function() {
+    showMesto(item);
+  })
   return cardElement;
  }
 
@@ -134,3 +133,16 @@ const enableValidationObj = {
 
 new FormValidator(enableValidationObj, popupAddCard).enableValidation();
 new FormValidator(enableValidationObj, profileEditPopup).enableValidation();
+
+
+const showPopupMesto = document.querySelector(".popup-mesto");
+const mestoName = document.querySelector('.popup-mesto__name');
+const mestoMask = document.querySelector('.popup-mesto__mask');
+
+// ПРОСМОТР ФОТО
+function showMesto(data) {
+    mestoName.textContent = data.name;
+    mestoMask.src = data.link;
+    mestoMask.alt = data.name;
+    openPopup(showPopupMesto);
+  }
