@@ -4,7 +4,7 @@ class FormValidator {
   constructor(enableValidationObj, popupElement) {
     this._element = popupElement;
     this.enableValidationObj = enableValidationObj;
-    this._input = Array.from(this._element.querySelectorAll(this.enableValidationObj.inputSelector));
+    this._inputs = Array.from(this._element.querySelectorAll(this.enableValidationObj.inputSelector));
     this._button = this._element.querySelector(this.enableValidationObj.submitButtonSelector);
     // console.log('submitButtonSelector:', this._button); // ПРОВЕРКА
   }
@@ -37,8 +37,8 @@ class FormValidator {
 
   // проверит наличие невалидного поля
   _hasInvalidInput() {
-    // console.log('_input:', this._input); // ПРОВЕРКА
-    return this._input.some((input) => {
+    // console.log('_inputs:', this._inputs); // ПРОВЕРКА
+    return this._inputs.some((input) => {
       return !input.validity.valid;
     })
   }
@@ -59,7 +59,7 @@ class FormValidator {
   _setEventListernes() {
     // console.log('_setEventListernes() called'); // ПРОВЕРКА
     this._toggleBattonState();
-    this._input.forEach((input) => {
+    this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._isValid(input);
         this._toggleBattonState();

@@ -1,3 +1,4 @@
+import {showMesto} from './showMesto.js' //_________________
 export {Card}
 
 class Card {
@@ -32,6 +33,9 @@ class Card {
     this._element.querySelector('.card__basket').addEventListener('click', () => { // корзина
       this._cardBasket();
     })
+    this._element.querySelector('.card__mask').addEventListener('click', () => { // ________________________
+      showMesto(this._link, this._name, this._templateSelector); 
+    }); 
   }
 
   _cardHurt() { // метод лайки
@@ -40,5 +44,6 @@ class Card {
 
   _cardBasket() { // метод корзина
     this._element.querySelector('.card__basket').closest('.card').remove()
+    this._element = null;
   }
 }
