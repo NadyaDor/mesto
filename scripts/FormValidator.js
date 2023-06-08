@@ -47,11 +47,11 @@ class FormValidator {
   _toggleBattonState() {
     if (this._hasInvalidInput()) {
       // console.log('submitButtonSelector:', this._button); // ПРОВЕРКА
-      this._button.classList.add(this.enableValidationObj.inactiveButtonClass);
       this._button.setAttribute('disabled', true);
+      this._button.classList.add(this.enableValidationObj.inactiveButtonClass);
     } else {
-      this._button.classList.remove(this.enableValidationObj.inactiveButtonClass);
       this._button.removeAttribute('disabled');
+      this._button.classList.remove(this.enableValidationObj.inactiveButtonClass);
     }
   }
 
@@ -69,7 +69,6 @@ class FormValidator {
 
   // находит все формы на странице
   enableValidation() {
-    // console.log('enableValidation() called'); // ПРОВЕРКА
     // this._element = this._element.querySelector('.popup__form');
     this._element.addEventListener('submit', (evt) => {
         evt.preventDefault();

@@ -1,6 +1,7 @@
 import {initialCards} from './initialCards.js'
 import {Card} from './card.js'
 import {FormValidator} from './FormValidator.js'
+import {enableValidationObj} from './enableValidationObj.js'
 
 // элементы PROFILE
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -19,23 +20,15 @@ const inputPopupCardLink = popupAddCard.querySelector(".popup__input_type_link")
 const templateCard = document.getElementById('card-template');
 const cards = document.querySelector('.cards');
 
-// const cardMesto = document.querySelector('.card');
-
 //элементы ESC
 const escKey = 27;
 
 // ОТКРЫТИЕ ЛЮБОГО ПОПАПА
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeEsc);
   document.addEventListener('mousedown', closeByOverlay);
 };
-// // функция которая находит кнонку сабмит открытого попапа и делает ее неактивной
-// function disabledSubmitButton(popup) {
-//   const button = popup.querySelector('.popup__button-edit');
-//   button.classList.add('popup__button-edit_inactive');
-//   button.setAttribute('disabled', true);
-// }
 
 // ЗАКРЫТИЕ ПОПАПОВ
 function closeEsc(evt) { // закрытие по ESC
@@ -79,21 +72,17 @@ formPopupProfile.addEventListener('submit', (event) => {
   // указываю куда сохранятся изменения
   profileName.textContent = name;
   profileAbout.textContent = about;
-  // disabledSubmitButton(profileEditPopup);
   closePopup(profileEditPopup);
 });
 
 initialCards.forEach(function (item) {
   createCard (item)
-});
+})
 
 function createCard (item) {
-  const card = new Card(item, '.card-template_type_default'); // создание экземпляра карточки
-  const cardElement = card.generateCard(); // создание карточки и возврат наружу
-  document.querySelector('.cards').append(cardElement); // добавление в DOM
-  cards.addEventListener('click', function() {
-    showMesto(item);
-  })
+  const card = new Card(item, '.card-template_type_default', openPopup); // создание экземпляра карточки
+  const cardElement = card.generateCard();
+  cards.append(cardElement); // добавление в DOM
   return cardElement;
  }
 
@@ -118,31 +107,13 @@ formPopupCard.addEventListener('submit', (event) => {
   };
   renderImageCard(createCard(imageData));
   formPopupCard.reset();
-  // disabledSubmitButton(popupAddCard);
   closePopup(popupAddCard);
 });
 
-const enableValidationObj = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-edit',
-  inactiveButtonClass: 'popup__button-edit_inactive',
-  inputErrorClass: 'popup__input_error',
-  errorClass: 'popup__input-error_active'
-}
+// валидация на попапы
 
-new FormValidator(enableValidationObj, popupAddCard).enableValidation();
-new FormValidator(enableValidationObj, profileEditPopup).enableValidation();
+const formValidatorAddCard = new FormValidator(enableValidationObj, popupAddCard);
+formValidatorAddCard.enableValidation();
 
-
-const showPopupMesto = document.querySelector(".popup-mesto");
-const mestoName = document.querySelector('.popup-mesto__name');
-const mestoMask = document.querySelector('.popup-mesto__mask');
-
-// ПРОСМОТР ФОТО
-function showMesto(data) {
-    mestoName.textContent = data.name;
-    mestoMask.src = data.link;
-    mestoMask.alt = data.name;
-    openPopup(showPopupMesto);
-  }
+const formValidatorEditProfile = new FormValidator(enableValidationObj, profileEditPopup);
+formValidatorEditProfile.enableValidation();

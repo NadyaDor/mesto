@@ -1,11 +1,9 @@
-export {Card}
-
 class Card {
-  constructor(data, templateSelector, showMesto) { // конструктор получает объект
+  constructor(data, templateSelector, openPopupFunc) { // конструктор получает объект
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._showMesto = showMesto;
+    this._openPopupFunc = openPopupFunc
   }
 
   _getTemplate() { // это метод, который возвращает разметку классу Card, забирает ее из HTML и клонирует элемент
@@ -33,9 +31,9 @@ class Card {
     this._element.querySelector('.card__basket').addEventListener('click', () => { // корзина
       this._cardBasket();
     })
-    this._element.querySelector('.card__mask').addEventListener('click', () => { // ________________________
-      this._cardZoom(); 
-    }); 
+    this._element.querySelector('.card__mask').addEventListener('click', () => {
+      this._showMesto();
+    });
   }
 
   _cardHurt() { // метод лайки
@@ -47,7 +45,16 @@ class Card {
     this._element = null;
   }
 
-  _cardZoom() {
-    this._showMesto()
+  _showMesto() {
+    const showPopupMesto = document.querySelector(".popup-mesto");
+    const mestoName = document.querySelector('.popup-mesto__name');
+    const mestoMask = document.querySelector('.popup-mesto__mask');
+
+    mestoMask.src = this._link;
+    mestoMask.alt = this._name;
+    mestoName.textContent = this._name;
+    this._openPopupFunc(showPopupMesto);
   }
 }
+
+export {Card}
