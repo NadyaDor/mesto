@@ -76,14 +76,13 @@ formPopupProfile.addEventListener('submit', (event) => {
 });
 
 initialCards.forEach(function (item) {
-  createCard (item)
+  const cardElement = createCard (item);
+  cards.append(cardElement);
 })
 
 function createCard (item) {
   const card = new Card(item, '.card-template_type_default', openPopup); // создание экземпляра карточки
-  const cardElement = card.generateCard();
-  cards.append(cardElement); // добавление в DOM
-  return cardElement;
+  return card.generateCard();
  }
 
 // открытие попапа карточек

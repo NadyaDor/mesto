@@ -59,6 +59,11 @@ class FormValidator {
   _setEventListernes() {
     // console.log('_setEventListernes() called'); // ПРОВЕРКА
     this._toggleBattonState();
+    this._element.addEventListener("reset", () => {
+      setTimeout(() => {
+        this._toggleBattonState();
+      }, 0);
+    });
     this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._isValid(input);

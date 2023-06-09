@@ -17,31 +17,30 @@ class Card {
 
   generateCard() { // метод готовит карточку к публикации
     this._element = this._getTemplate(); // здесь запишем разметку
-    this._setEventListeners();
     this._element.querySelector('.card__mask').src = this._link; // добавление данных
     this._element.querySelector('.card__mask').alt = this._name;
     this._element.querySelector('.card__place').textContent = this._name;
+    this._elementHurt = this._element.querySelector('.card__hurt');
+    this._elementBasket = this._element.querySelector('.card__basket');
+    this._elementMask = this._element.querySelector('.card__mask');
+    this._setEventListeners();
     return this._element // возврат элемента наружу
   }
 
   _setEventListeners() {
-    this._element.querySelector('.card__hurt').addEventListener('click', () => { // лайки
-      this._cardHurt();
-    });
-    this._element.querySelector('.card__basket').addEventListener('click', () => { // корзина
-      this._cardBasket();
-    })
-    this._element.querySelector('.card__mask').addEventListener('click', () => {
+    this._elementHurt.addEventListener('click',this._cardHurt);
+    this._elementBasket.addEventListener('click',this._cardBasket);
+    this._elementMask.addEventListener('click', () => {
       this._showMesto();
     });
   }
 
-  _cardHurt() { // метод лайки
-    this._element.querySelector('.card__hurt').classList.toggle('card__hurt_active')
+  _cardHurt = () => { // метод лайки
+    this._elementHurt.classList.toggle('card__hurt_active');
   }
 
-  _cardBasket() { // метод корзина
-    this._element.querySelector('.card__basket').closest('.card').remove()
+  _cardBasket = () => { // метод корзина
+    this._element.remove();
     this._element = null;
   }
 
