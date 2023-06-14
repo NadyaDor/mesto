@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Приложение для размещения фото.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NadyaDor/mesto.git"
+  },
+  "author": "Nadya Dor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NadyaDor/mesto/issues"
+  },
+  "homepage": "https://github.com/NadyaDor/mesto#readme"
+}

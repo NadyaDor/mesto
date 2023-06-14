@@ -1,4 +1,4 @@
-import {escKey} from './components.js'
+import {escKey} from '../utils/constants.js'
 
 export default class Popup { // ОТКРЫТИЕ И ЗАКРЫТИЕ ПОПАПА
   constructor(popupElement) {

@@ -8,3 +8,12 @@ export const profileAbout = document.querySelector(".profile__about");
 export const popupAddCard = document.querySelector(".popup_card");
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const showPopupMesto = document.querySelector(".popup-mesto");
+
+export const enableValidationObj = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-edit',
+  inactiveButtonClass: 'popup__button-edit_inactive',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__input-error_active'
+}

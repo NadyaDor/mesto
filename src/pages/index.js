@@ -1,11 +1,11 @@
-import {initialCards} from './initialCards.js'
-import Card from './card.js'
-import {FormValidator} from './FormValidator.js'
-import {enableValidationObj} from './enableValidationObj.js'
-import UserInfo from './UserInfo.js'
-import PopupWithForm from './PopupWithForm.js'
-import Section from './Section.js'
-import PopupWithImage from './PopupWithImage.js'
+import {initialCards} from '../utils/initialCards.js'
+import Card from '../components/card.js'
+import {FormValidator} from '../components/FormValidator.js'
+import {enableValidationObj} from '../utils/constants.js'
+import UserInfo from '../components/UserInfo.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import Section from '../components/Section.js'
+import PopupWithImage from '../components/PopupWithImage.js'
 import {
   profileEditButton,
   profileEditPopup,
@@ -16,7 +16,7 @@ import {
   popupAddCard,
   profileAddButton,
   showPopupMesto
-} from './components.js'
+} from '../utils/constants.js'
 
 profileEditButton.addEventListener('click', () => { //ОТКРОЕТ ПОПАП ПРОФИЛЯ
   const data = userInfo.getUserInfo()

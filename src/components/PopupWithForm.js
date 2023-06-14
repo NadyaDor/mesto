@@ -1,4 +1,4 @@
-import Popup from './Popup.js'
+import Popup from '../components/Popup.js'
 
 export default class PopupWithForm extends Popup { // ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ
   constructor({popupElement, handleFormSubmit}) {
