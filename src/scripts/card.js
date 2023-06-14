@@ -1,9 +1,9 @@
-class Card {
-  constructor(data, templateSelector, openPopupFunc) { // конструктор получает объект
+export default class Card {
+  constructor({data, handleCardClick}, templateSelector) { // конструктор получает объект
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openPopupFunc = openPopupFunc
+    this._handleCardClick = handleCardClick
   }
 
   _getTemplate() { // это метод, который возвращает разметку классу Card, забирает ее из HTML и клонирует элемент
@@ -17,12 +17,12 @@ class Card {
 
   generateCard() { // метод готовит карточку к публикации
     this._element = this._getTemplate(); // здесь запишем разметку
-    this._element.querySelector('.card__mask').src = this._link; // добавление данных
-    this._element.querySelector('.card__mask').alt = this._name;
+    this._elementMask = this._element.querySelector('.card__mask');
+    this._elementMask.src = this._link; // добавление данных
+    this._elementMask.alt = this._name;
     this._element.querySelector('.card__place').textContent = this._name;
     this._elementHurt = this._element.querySelector('.card__hurt');
     this._elementBasket = this._element.querySelector('.card__basket');
-    this._elementMask = this._element.querySelector('.card__mask');
     this._setEventListeners();
     return this._element // возврат элемента наружу
   }
@@ -31,7 +31,7 @@ class Card {
     this._elementHurt.addEventListener('click',this._cardHurt);
     this._elementBasket.addEventListener('click',this._cardBasket);
     this._elementMask.addEventListener('click', () => {
-      this._showMesto();
+      this._handleCardClick(this._name, this._link);
     });
   }
 
@@ -43,17 +43,4 @@ class Card {
     this._element.remove();
     this._element = null;
   }
-
-  _showMesto() {
-    const showPopupMesto = document.querySelector(".popup-mesto");
-    const mestoName = document.querySelector('.popup-mesto__name');
-    const mestoMask = document.querySelector('.popup-mesto__mask');
-
-    mestoMask.src = this._link;
-    mestoMask.alt = this._name;
-    mestoName.textContent = this._name;
-    this._openPopupFunc(showPopupMesto);
-  }
 }
-
-export {Card}

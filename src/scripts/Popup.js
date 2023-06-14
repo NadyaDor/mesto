@@ -1,0 +1,40 @@
+import {escKey} from './components.js'
+
+export default class Popup { // ОТКРЫТИЕ И ЗАКРЫТИЕ ПОПАПА
+  constructor(popupElement) {
+    this._popupElement = popupElement;
+    this._handleEscClose = this._handleEscClose.bind(this);
+  };
+
+  open() {
+    this._popupElement.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscClose);
+  };
+
+  close() {
+    this._popupElement.classList.remove('popup_opened');
+    document.removeEventListener('keydown', this._handleEscClose);
+  };
+
+  _handleEscClose(evt) { // закрытие по esc
+    if (evt.keyCode === escKey) {
+      this.close();
+    };
+  };
+
+  _handleOverlayClose() { // закрытие при клике на затемненную область
+    this._popupElement.addEventListener('click', (evt) => {
+      if (evt.currentTarget === evt.target) {
+        this.close();
+      }
+    });
+  };
+
+  setEventListeners() { // слушает иконку закрытия попапа
+    this._closeButton = this._popupElement.querySelector('.popup__close');
+    this._closeButton.addEventListener('click', () => {
+      this.close();
+    });
+    this._handleOverlayClose();
+  };
+}

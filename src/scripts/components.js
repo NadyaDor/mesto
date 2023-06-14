@@ -1,0 +1,10 @@
+export const escKey = 27;
+export const profileEditButton = document.querySelector(".profile__edit-button");
+export const profileEditPopup = document.querySelector(".popup_profile");
+export const inputPopupProfileName = profileEditPopup.querySelector(".popup__input_type_name");
+export const inputPopupProfileAbout = profileEditPopup.querySelector(".popup__input_type_about");
+export const profileName = document.querySelector(".profile__name");
+export const profileAbout = document.querySelector(".profile__about");
+export const popupAddCard = document.querySelector(".popup_card");
+export const profileAddButton = document.querySelector(".profile__add-button");
+export const showPopupMesto = document.querySelector(".popup-mesto");
