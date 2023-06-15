@@ -1,6 +1,6 @@
 import './index.css';
 import {initialCards} from '../utils/initialCards.js'
-import Card from '../components/card.js'
+import Card from '../components/Card.js'
 import {FormValidator} from '../components/FormValidator.js'
 import {enableValidationObj} from '../utils/constants.js'
 import UserInfo from '../components/UserInfo.js'
@@ -19,13 +19,6 @@ import {
   showPopupMesto
 } from '../utils/constants.js'
 
-profileEditButton.addEventListener('click', () => { //ОТКРОЕТ ПОПАП ПРОФИЛЯ
-  const data = userInfo.getUserInfo()
-  inputPopupProfileName.value = data.userName; // присваиваем в строках ввода значения из профайла
-  inputPopupProfileAbout.value = data.userAbout;
-  popupEditProfile.open();
-});
-
 const userInfo = new UserInfo({ // ПРИСВОИТ НОВЫЕ ЗНАЧЕНИЯ ИНФОРМАЦИИ О ПРОФИЛЕ
   userName: profileName,
   userAbout: profileAbout
@@ -33,31 +26,26 @@ const userInfo = new UserInfo({ // ПРИСВОИТ НОВЫЕ ЗНАЧЕНИЯ 
 
 const popupEditProfile = new PopupWithForm({ // ЗАПИШЕТ НОВУЮ ИНФУ О ПРОФИЛЕ
   popupElement: profileEditPopup,
-  handleFormSubmit: (input) => {
+  handleFormSubmit: (input, callback) => {
     const data = {
-    userName: input['name'],
-    userAbout: input['about']
+      userName: input['name'],
+      userAbout: input['about']
     }
     userInfo.setUserInfo(data);
+    callback();
   }
 });
 
-popupEditProfile.setEventListeners();
-
 const popupCard = new PopupWithForm({ // ДОБАВЛЕНИЕ КАРТОЧКИ
   popupElement: popupAddCard,
-  handleFormSubmit: (input) => {
+  handleFormSubmit: (input, callback) => {
     const data = {
       name: input['name'],
       link: input['link']
     };
-    section.addItem(createCard(data));
+    renderCard(data);
+    callback();
   }
-});
-
-profileAddButton.addEventListener('click', () => { // ОТКРОЕТ ПОПАП КАРТОЧКИ
-  // formValidatorAddCard.disabledSubmitButton();
-  popupCard.open();
 });
 
 const popupOpenMesto = new PopupWithImage(showPopupMesto); // ОТКРОЕТ ПОПАП БОЛЬШОЕ ФОТО
@@ -80,15 +68,26 @@ const section = new Section( // БЕРЕМ КАРТОЧКИ ИЗ МАССИВА
   '.cards'
 );
 
+profileEditButton.addEventListener('click', () => { //ОТКРОЕТ ПОПАП ПРОФИЛЯ
+  const data = userInfo.getUserInfo()
+  inputPopupProfileName.value = data.userName; // присваиваем в строках ввода значения из профайла
+  inputPopupProfileAbout.value = data.userAbout;
+  popupEditProfile.open();
+});
+
+profileAddButton.addEventListener('click', () => { // ОТКРОЕТ ПОПАП КАРТОЧКИ
+  popupCard.open();
+});
+
 function renderCard(cardData) {
   const cardElement = createCard(cardData);
   section.addItem(cardElement);
 };
 
-section.renderer(initialCards);
+section.renderItems(initialCards);
 
+popupEditProfile.setEventListeners();
 popupCard.setEventListeners();
-
 popupOpenMesto.setEventListeners();
 
 // валидация на попапы

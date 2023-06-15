@@ -28,18 +28,18 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._elementHurt.addEventListener('click',this._cardHurt);
-    this._elementBasket.addEventListener('click',this._cardBasket);
+    this._elementHurt.addEventListener('click',this._toggleLike);
+    this._elementBasket.addEventListener('click',this._removeMesto);
     this._elementMask.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
   }
 
-  _cardHurt = () => { // метод лайки
+  _toggleLike = () => { // метод лайки
     this._elementHurt.classList.toggle('card__hurt_active');
   }
 
-  _cardBasket = () => { // метод корзина
+  _removeMesto = () => { // метод корзина
     this._element.remove();
     this._element = null;
   }
