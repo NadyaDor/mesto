@@ -2,7 +2,7 @@ import {escKey} from '../utils/constants.js'
 
 export default class Popup { // ОТКРЫТИЕ И ЗАКРЫТИЕ ПОПАПА
   constructor(popupElement) {
-    this._popupElement = popupElement;
+    this._popupElement = document.querySelector(popupElement);
     this._handleEscClose = this._handleEscClose.bind(this);
   };
 
