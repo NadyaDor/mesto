@@ -1,7 +1,7 @@
 export default class UserInfo { // отображает информацию о пользователе на странице
   constructor({userName, userAbout}) {
-    this._profileUserName = userName;
-    this._profileUserAbout = userAbout;
+    this._profileUserName = document.querySelector(userName);
+    this._profileUserAbout = document.querySelector(userAbout);
   };
 
   getUserInfo() { // возвратит объект с данными пользователя

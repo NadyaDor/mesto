@@ -20,8 +20,8 @@ import {
 } from '../utils/constants.js'
 
 const userInfo = new UserInfo({ // ПРИСВОИТ НОВЫЕ ЗНАЧЕНИЯ ИНФОРМАЦИИ О ПРОФИЛЕ
-  userName: profileName,
-  userAbout: profileAbout
+  userName: '.profile__name',
+  userAbout: '.profile__about'
 })
 
 const popupEditProfile = new PopupWithForm({ // ЗАПИШЕТ НОВУЮ ИНФУ О ПРОФИЛЕ
