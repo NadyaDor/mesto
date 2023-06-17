@@ -12,11 +12,8 @@ import {
   profileEditPopup,
   inputPopupProfileName,
   inputPopupProfileAbout,
-  profileName,
-  profileAbout,
   popupAddCard,
   profileAddButton,
-  showPopupMesto
 } from '../utils/constants.js'
 
 const userInfo = new UserInfo({ // ПРИСВОИТ НОВЫЕ ЗНАЧЕНИЯ ИНФОРМАЦИИ О ПРОФИЛЕ
@@ -48,7 +45,7 @@ const popupCard = new PopupWithForm({ // ДОБАВЛЕНИЕ КАРТОЧКИ
   }
 });
 
-const popupOpenMesto = new PopupWithImage(showPopupMesto); // ОТКРОЕТ ПОПАП БОЛЬШОЕ ФОТО
+const popupOpenMesto = new PopupWithImage('.popup-mesto'); // ОТКРОЕТ ПОПАП БОЛЬШОЕ ФОТО
 function createCard(cardData) {
   const card = new Card(
     {
