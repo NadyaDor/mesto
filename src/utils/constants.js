@@ -5,6 +5,7 @@ export const inputPopupProfileName = profileEditPopup.querySelector(".popup__inp
 export const inputPopupProfileAbout = profileEditPopup.querySelector(".popup__input_type_about");
 export const profileName = document.querySelector(".profile__name");
 export const profileAbout = document.querySelector(".profile__about");
+export const profileAvatar = document.querySelector(".profile__avatar")
 export const popupAddCard = document.querySelector(".popup_card");
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const showPopupMesto = document.querySelector(".popup-mesto");
