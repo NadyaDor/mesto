@@ -4,37 +4,48 @@ export default class Api {
     this.headers = options.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+      .then(this._checkResponse)
   }
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers
     })
-    .then(this._chekcResponse)
-    .then(res => res.json()) // отработает ответ в формат JSON
-    .catch(this._handleError);
+      .then(this._checkResponse)
   }
 
   updateUserInfo(data) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
-        authorization: this.headers.authorization,
+        ...this.headers,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-    .then(this._checkResponse)
-    .catch(this._handleError);
+      .then(this._checkResponse)
+  }
+
+  addCard(data) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: 'POST',
+      headers: {
+        ...this.headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(this._checkResponse)
   }
 }

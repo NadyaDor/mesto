@@ -21,6 +21,8 @@
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__about/card__about.css);
 @import url(../blocks/card/__basket/card__basket.css);
+@import url(../blocks/card/__hurts/card__hurts.css);
+@import url(../blocks/card/__hurt-count/card__hurt-count.css);
 @import url(../blocks/card/__hurt/card__hurt.css);
 @import url(../blocks/card/__hurt/_active/card__hurt_active.css);
 @import url(../blocks/card/__mask/card__mask.css);

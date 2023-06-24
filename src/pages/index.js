@@ -20,9 +20,9 @@ import {
 } from '../utils/constants.js'
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-68',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-69',
   headers: {
-    authorization: '70f24e40-981a-4d62-bb24-0aeaa2de0af4'
+    authorization: '9e13b88e-8a47-4c65-9992-ee33a8d52585'
   }
 });
 
@@ -45,6 +45,7 @@ api.getUserInfo() // получение данных о пользователе
   });
 
 const popupOpenMesto = new PopupWithImage('.popup-mesto'); // ОТКРОЕТ ПОПАП БОЛЬШОЕ ФОТО
+
 function createCard(cardData) {
   const card = new Card(
     {
@@ -74,11 +75,6 @@ api.getInitialCards()
     console.log(err);
   });
 
-// const userInfo = new UserInfo({ // ПРИСВОИТ НОВЫЕ ЗНАЧЕНИЯ ИНФОРМАЦИИ О ПРОФИЛЕ
-//   userName: '.profile__name',
-//   userAbout: '.profile__about'
-// })
-
 const popupEditProfile = new PopupWithForm({
   popupElement: '.popup_profile',
   handleFormSubmit: (input, callback) => {
@@ -86,7 +82,7 @@ const popupEditProfile = new PopupWithForm({
       name: input['name'],
       about: input['about']
     };
-    api.updateUserInfo()
+    api.updateUserInfo(data)
       .then(() => {
         userInfo.setUserInfo(data); // обновляем данные пользователя на странице
         callback(); // закрываем попап
@@ -104,15 +100,21 @@ const popupCard = new PopupWithForm({ // ДОБАВЛЕНИЕ КАРТОЧКИ
       name: input['name'],
       link: input['link']
     };
-    renderCard(data);
-    callback();
+    api.addCard(data) // Вызываем метод addCard для добавления новой карточки
+      .then((newCard) => {
+        renderCard(newCard);
+        callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 });
 
-// const section = new Section( // БЕРЕМ КАРТОЧКИ ИЗ МАССИВА
-//   { items: initialCards, renderer: renderCard },
-//   '.cards'
-// );
+function renderCard(cardData) {
+  const cardElement = createCard(cardData);
+  cardList.addItem(cardElement);
+};
 
 profileEditButton.addEventListener('click', () => { //ОТКРОЕТ ПОПАП ПРОФИЛЯ
   const userData = userInfo.getUserInfo();
@@ -124,13 +126,6 @@ profileEditButton.addEventListener('click', () => { //ОТКРОЕТ ПОПАП 
 profileAddButton.addEventListener('click', () => { // ОТКРОЕТ ПОПАП КАРТОЧКИ
   popupCard.open();
 });
-
-// function renderCard(cardData) {
-//   const cardElement = createCard(cardData);
-//   section.addItem(cardElement);
-// };
-
-// section.renderItems(initialCards);
 
 popupEditProfile.setEventListeners();
 popupCard.setEventListeners();
