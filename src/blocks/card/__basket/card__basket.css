@@ -4,11 +4,13 @@
   background-image: url(../../../images/Basket.svg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-color: transparent;
   position: absolute;
   transition: 1s ease-in-out;
   cursor: pointer;
   top: 20px;
   right: 20px;
+  border: none;
 }
 
 .card__basket:hover {

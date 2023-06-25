@@ -20,6 +20,7 @@ export default class Api {
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
+      method: 'GET',
       headers: this.headers
     })
       .then(this._checkResponse)
