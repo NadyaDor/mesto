@@ -9,6 +9,7 @@ export const profileAvatar = document.querySelector(".profile__avatar")
 export const popupAddCard = document.querySelector(".popup_card");
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const showPopupMesto = document.querySelector(".popup-mesto");
+export const popupBasket = document.querySelector(".popup_basket");
 
 export {enableValidationObj}
 

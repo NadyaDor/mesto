@@ -1,6 +1,8 @@
 import Popup from './Popup.js'
 
-export default class PopupWithForm extends Popup { // ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ
+// ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ
+
+export default class PopupWithForm extends Popup {
   constructor({popupElement, handleFormSubmit}) {
     super(popupElement);
     this._form = this._popupElement.querySelector('.popup__form');
@@ -8,22 +10,22 @@ export default class PopupWithForm extends Popup { // ПОПАП РЕДАКТИ�
     this._inputList = Array.from(this._form.querySelectorAll('.popup__input'));
   }
 
-  _getInputValues() { // соберет данные всех полей формы
-    this._formValues = {};
+  _getInputValues() { // собирает данные всех полей формы
+    this._formValues = {}; // данные осбираются в этот объект
     this._inputList.forEach((input) => {
       (this._formValues[input.name] = input.value)
     });
     return this._formValues;
   }
 
-  setEventListeners() { // добавит обработчики клика иконке и сабмита формы
-    this._popupElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._handleFormSubmit(this._getInputValues(), () => {
+  setEventListeners() {
+    this._popupElement.addEventListener('submit', (evt) => { // добавляет обработчик события на этот элемент, представляющий форму внутри попапа
+      evt.preventDefault(); // предотвращает отправку данных без разрешения
+      this._handleFormSubmit(this._getInputValues(), () => { // передает значение полей формы 
         this.close();
       });
     });
-    super.setEventListeners();
+    super.setEventListeners(); // добавляет другие обработчики событий
   }
 
   close() { // сбросит форму при закрытии

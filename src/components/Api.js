@@ -1,24 +1,26 @@
+// ВЗАИМОДЕЙСТВИЕ С СЕРВЕРОМ ЧЕРЕЗ API
+
 export default class Api {
   constructor(options) {
-    this.baseUrl = options.baseUrl;
-    this.headers = options.headers;
+    this.baseUrl = options.baseUrl; // базовый адрес
+    this.headers = options.headers; // заголовки запроса
   }
 
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
+  _checkResponse(res) { // проверка ответа с сервера
+    if (res.ok) { // если ответ успешный (код 200)
+      return res.json(); // возвращает преобразованный ответ
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(`Ошибка: ${res.status}`); // отклоняет промис с сообщеним об ошибке
   }
 
-  getUserInfo() {
+  getUserInfo() { // получение информации о пользователе
     return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers
     })
       .then(this._checkResponse)
   }
 
-  getInitialCards() {
+  getInitialCards() { // получение списка карточек
     return fetch(`${this.baseUrl}/cards`, {
       method: 'GET',
       headers: this.headers
@@ -26,7 +28,7 @@ export default class Api {
       .then(this._checkResponse)
   }
 
-  updateUserInfo(data) {
+  updateUserInfo(data) { // обновление информации о пользователе
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -38,7 +40,7 @@ export default class Api {
       .then(this._checkResponse)
   }
 
-  addCard(data) {
+  addCard(data) { // запрос на добавление новой карточки
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       headers: {

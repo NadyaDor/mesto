@@ -14,10 +14,15 @@ import {
   inputPopupProfileAbout,
   popupAddCard,
   profileAddButton,
+  popupBasket,
   profileName,
   profileAbout,
   profileAvatar
 } from '../utils/constants.js'
+
+let myId; // хранит мой _id
+
+// ВЗАИМОДЕЙСТВИЕ С СЕРВЕРОМ
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-69',
@@ -26,15 +31,19 @@ const api = new Api({
   }
 });
 
+// УПРАВЛЕНИЕ ИНФОРМАЦИЕЙ О ПОЛЬЗОВАТЕЛЕ
+
 const userInfo = new UserInfo({
   nameElement: '.profile__name',
   aboutElement: '.profile__about',
   avatarElement: '.profile__avatar'
 });
 
-api.getUserInfo() // получение данных о пользователе
+api.getUserInfo() // получает данные о пользователе с сервера
   .then(userInfoData => {
-    userInfo.setUserInfo({
+    myId = userInfoData._id; // здесь я сохраняю свой _id в переменную
+
+    userInfo.setUserInfo({ // устанавливает данные на странице
       name: userInfoData.name,
       about: userInfoData.about,
       avatar: userInfoData.avatar
@@ -44,9 +53,29 @@ api.getUserInfo() // получение данных о пользователе
     console.log(error);
   });
 
-const popupOpenMesto = new PopupWithImage('.popup-mesto'); // ОТКРОЕТ ПОПАП БОЛЬШОЕ ФОТО
+const popupEditProfile = new PopupWithForm({ // редактирование профиля
+  popupElement: '.popup_profile',
+  handleFormSubmit: (input, callback) => {
+    const data = {
+      name: input['name'],
+      about: input['about']
+    };
+    api.updateUserInfo(data)
+      .then(() => {
+        userInfo.setUserInfo(data);
+        callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+});
 
-function createCard(cardData) {
+// КАРТОЧКИ
+
+const popupOpenMesto = new PopupWithImage('.popup-mesto'); // увеличивает изображение при клике на карточку
+
+function createCard(cardData) { //создается экземпляр карточки
   const card = new Card(
     {
       data: cardData,
@@ -56,51 +85,39 @@ function createCard(cardData) {
     },
     '#card-template'
   );
-  const cardElement = card.generateCard();
+  const cardElement = card.generateCard(); // создает DOM-элемент карточки
+
+  if (cardData.owner._id !== myId) { // удаляет корзинки с чужих карточек
+    const basketElement = cardElement.querySelector('.card__basket');
+    basketElement.remove();
+  }
+
   return cardElement;
 };
 
-const cardList = new Section({
+const cardList = new Section({ // отрисует карточки на странице
   renderer: (cardData) => {
     const card = createCard(cardData);
     cardList.addItem(card);
   }
 }, '.cards')
 
-api.getInitialCards()
+api.getInitialCards() // получает список карточек с сервера
   .then((cards) =>{
-    cardList.renderItems(cards); // обработает полученные карточки
+    cardList.renderItems(cards); // полученные карточки передаются для отрисовки
   })
   .catch((err) => {
     console.log(err);
   });
 
-const popupEditProfile = new PopupWithForm({
-  popupElement: '.popup_profile',
-  handleFormSubmit: (input, callback) => {
-    const data = {
-      name: input['name'],
-      about: input['about']
-    };
-    api.updateUserInfo(data)
-      .then(() => {
-        userInfo.setUserInfo(data); // обновляем данные пользователя на странице
-        callback(); // закрываем попап
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-});
-
-const popupCard = new PopupWithForm({ // ДОБАВЛЕНИЕ КАРТОЧКИ
+const popupCard = new PopupWithForm({ // добавление карточек
   popupElement: '.popup_card',
   handleFormSubmit: (input, callback) => {
     const data = {
       name: input['name'],
       link: input['link']
     };
-    api.addCard(data) // Вызываем метод addCard для добавления новой карточки
+    api.addCard(data)
       .then((newCard) => {
         renderCard(newCard);
         callback();
@@ -111,27 +128,30 @@ const popupCard = new PopupWithForm({ // ДОБАВЛЕНИЕ КАРТОЧКИ
   }
 });
 
-function renderCard(cardData) {
+function renderCard(cardData) { // создает и добавляет новую карточку в список
   const cardElement = createCard(cardData);
   cardList.addItem(cardElement);
 };
 
-profileEditButton.addEventListener('click', () => { //ОТКРОЕТ ПОПАП ПРОФИЛЯ
+profileEditButton.addEventListener('click', () => { // обработчик для кнопки редактирования профиля, открытие попапа
   const userData = userInfo.getUserInfo();
-  inputPopupProfileName.value = userData.name || ''; // Присваиваем значение поля name
-  inputPopupProfileAbout.value = userData.about || ''; // Присваиваем значение поля about
+  inputPopupProfileName.value = userData.name || '';
+  inputPopupProfileAbout.value = userData.about || '';
   popupEditProfile.open();
 });
 
-profileAddButton.addEventListener('click', () => { // ОТКРОЕТ ПОПАП КАРТОЧКИ
+profileAddButton.addEventListener('click', () => { // обработчик для кнопки добавления карточки, открытие попапа
   popupCard.open();
 });
 
-popupEditProfile.setEventListeners();
-popupCard.setEventListeners();
-popupOpenMesto.setEventListeners();
+// ОБРАБОТЧИКИ ЗАКРЫТИЯ ПОПАПОВ
 
-// валидация на попапы
+popupEditProfile.setEventListeners(); // редактирование профиля
+popupCard.setEventListeners(); // добавление карточек
+popupOpenMesto.setEventListeners(); // увеличенное фото
+// popupBasket.setEventListeners(); // корзина
+
+// ВАЛИДАЦИЯ ФОРМ В ПОПАПАХ
 
 const formValidatorAddCard = new FormValidator(enableValidationObj, popupAddCard);
 formValidatorAddCard.enableValidation();

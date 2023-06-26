@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({data, handleCardClick}, templateSelector) { // конструктор получает объект
+  constructor({data, handleCardClick}, templateSelector) { // конструктор получает объект с данными, обработчик клика на карточку, селектор шаблона
     this._data = data; // сохраняет данные карточки
     this._name = data.name;
     this._link = data.link;
@@ -9,17 +9,17 @@ export default class Card {
     this._handleLikeClick = this._handleLikeClick.bind(this);
   }
 
-  _getTemplate() { // это метод, который возвращает разметку классу Card, забирает ее из HTML и клонирует элемент
+  _getTemplate() { // возвращает разметку из html-шаблона
     const cardElement = document
-      .querySelector(this._templateSelector)
+      .querySelector(this._templateSelector) // получает элемент шаблона по селектору
       .content
-      .querySelector('.card')
+      .querySelector('.card') // клонирует шаблон
       .cloneNode(true);
     return cardElement; // возвращает DOM-элемент
   }
 
   generateCard() { // метод готовит карточку к публикации
-    this._element = this._getTemplate(); // здесь запишем разметку
+    this._element = this._getTemplate();
     this._elementMask = this._element.querySelector('.card__mask');
     this._elementMask.src = this._link; // добавление данных
     this._elementMask.alt = this._name;
@@ -31,24 +31,24 @@ export default class Card {
     return this._element // возврат элемента наружу
   }
 
-  _setEventListeners() {
-    this._element.querySelector('.card__hurt').addEventListener('click', this._handleLikeClick);
-    this._element.querySelector('.card__basket').addEventListener('click', this._handleDeleteClick);
-    this._elementMask.addEventListener('click', () => {
+  _setEventListeners() { // устанавливает обраотчики событий для элементов карточки
+    this._element.querySelector('.card__hurt').addEventListener('click', this._handleLikeClick); // нравится
+    // this._element.querySelector('.card__basket').addEventListener('click', this._handleDeleteClick); // удаление
+    this._elementMask.addEventListener('click', () => { // увеличить картинку
       this._handleCardClick(this._name, this._link);
     });
   }
 
-  _handleLikeClick() {
+  _handleLikeClick() { // переключает класс на кнопке нравится
     this._element.querySelector('.card__hurt').classList.toggle('card__hurt_active');
   }
 
-  _handleDeleteClick() {
+  _handleDeleteClick() { // удаляет элемент карточки из DOM-дерева
     this._element.remove();
-    this._element = null;
+    this._element = null; // это значение освобождает память
   }
 
-  _getLikesCount() {
+  _getLikesCount() { // получает количество лайков для одной карточки
     return this._data.likes.length;
   }
 }

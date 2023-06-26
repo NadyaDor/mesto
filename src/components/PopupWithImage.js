@@ -1,6 +1,8 @@
 import Popup from './Popup.js'
 
-export default class PopupWithImage extends Popup { // УВЕЛИЧИВАЕТ КАРТИНКУ
+// ОТОБРАЗИТ УВЕЛИЧЕННОЕ ИЗОБРАЖЕНИЕ
+
+export default class PopupWithImage extends Popup {
   constructor(popupElement) {
     super(popupElement);
     this._zoomMask = this._popupElement.querySelector('.popup-mesto__mask');
