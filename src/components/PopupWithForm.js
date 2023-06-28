@@ -1,6 +1,6 @@
 import Popup from './Popup.js'
 
-// ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ
+// ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ И ДОБАВЛЕНИЯ КАРТОЧКИ
 
 export default class PopupWithForm extends Popup {
   constructor({popupElement, handleFormSubmit}) {

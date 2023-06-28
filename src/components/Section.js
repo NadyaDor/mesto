@@ -7,12 +7,12 @@ export default class Section {
   }
 
   renderItems(items) { // отвечает за создание и отрисовку элементов на странице
-    items.forEach((item) => {
+    items.reverse().forEach((item) => {
       this._renderer(item);
     });
   }
 
   addItem(element) { // примет и добавит DOM-элемент в контейнер
-    this._selector.append(element);
+    this._selector.prepend(element);
   }
 }
