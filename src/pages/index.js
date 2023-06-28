@@ -1,4 +1,4 @@
-import './index.css';
+// import './index.css';
 import Card from '../components/Card.js'
 import {FormValidator} from '../components/FormValidator.js'
 import {enableValidationObj} from '../utils/constants.js'
@@ -81,6 +81,21 @@ function createCard(cardData) { //создается экземпляр карт
       data: cardData,
       handleCardClick: () => {
         popupOpenMesto.open(cardData);
+      },
+      handleDeleteClick: () => {
+        const popupConfirmDelete = new PopupWithForm({
+          popupElement: '.popup_basket',
+          handleFormSubmit: () => {
+            api.deleteMyCard(cardData._id) // вызов метода для удаления карточки
+              .then((res) => {
+                card.deleteCard(res)
+                popupConfirmDelete.close()
+            })
+              .catch((error) => {console.log(error)})
+          }          
+        })
+        popupConfirmDelete.setEventListeners()
+        popupConfirmDelete.open()
       }
     },
     '#card-template'
@@ -104,6 +119,7 @@ const cardList = new Section({ // отрисует карточки на стр�
 
 api.getInitialCards() // получает список карточек с сервера
   .then((cards) =>{
+    
     cardList.renderItems(cards); // полученные карточки передаются для отрисовки
   })
   .catch((error) => {
@@ -149,7 +165,6 @@ profileAddButton.addEventListener('click', () => { // обработчик дл�
 popupEditProfile.setEventListeners(); // редактирование профиля
 popupCard.setEventListeners(); // добавление карточек
 popupOpenMesto.setEventListeners(); // увеличенное фото
-// popupBasket.setEventListeners(); // корзина
 
 // ВАЛИДАЦИЯ ФОРМ В ПОПАПАХ
 
