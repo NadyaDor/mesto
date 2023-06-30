@@ -10,6 +10,9 @@ export const popupAddCard = document.querySelector(".popup_card");
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const showPopupMesto = document.querySelector(".popup-mesto");
 export const popupBasket = document.querySelector(".popup_basket");
+export const profileEditAvatar = document.querySelector(".profile__edit-avatar");
+export const inpupPopupAvatar = document.querySelector(".popup__input_type_avatar");
+export const popupAvatar = document.querySelector(".popup_avatar")
 
 export {enableValidationObj}
 

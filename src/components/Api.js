@@ -35,7 +35,21 @@ export default class Api {
         ...this.headers,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about
+      })
+    })
+      .then(this._checkResponse)
+  }
+
+  updateAvatar(data) { // обновление аватара
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+				avatar: data.avatar
+			})
     })
       .then(this._checkResponse)
   }
@@ -58,5 +72,21 @@ export default class Api {
       headers: this.headers
     })
       .then(this._checkResponse);
+  }
+
+  likeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this.headers
+    })
+    .then(this._checkResponse)
+  }
+
+  unlikeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+    .then(this._checkResponse)
   }
 }
