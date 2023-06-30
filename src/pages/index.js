@@ -96,7 +96,7 @@ const popupOpenMesto = new PopupWithImage('.popup-mesto'); // увеличива
 
 function createCard(cardData) { //создается экземпляр карточки
   const card = new Card(
-    {
+    { myId,
       data: cardData,
       handleCardClick: () => {
         popupOpenMesto.open(cardData)

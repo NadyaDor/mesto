@@ -1,12 +1,13 @@
 export default class Card {
-  constructor({data, handleCardClick, handleDeleteClick, handleSetLike, handleDeleteLike}, templateSelector) { // конструктор получает объект с данными, обработчик клика на карточку, селектор шаблона
+  constructor({myId, data, handleCardClick, handleDeleteClick, handleSetLike, handleDeleteLike}, templateSelector) { // конструктор получает объект с данными, обработчик клика на карточку, селектор шаблона
     this._data = data; // сохраняет данные карточки
     this._cardId = data._id;
-    this._userId = data.userId;
+    this._userId = data.userId; // это id владельца карточки
     this._likes = data.likes;
     this._name = data.name;
     this._link = data.link;
-    // this._ownerId = data._owner._id;
+    this._ownerId = data.owner._id;
+    this._myId = myId; // это id  владельца подключения
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleSetLike = handleSetLike;
@@ -25,12 +26,17 @@ export default class Card {
 
   generateCard() { // метод готовит карточку к публикации
     this._element = this._getTemplate();
+    this._elementLike = this._element.querySelector('.card__hurt');
+
+    if (this.hasMyLike = this._likes.some((like) => like._id === this._myId)) {
+      this._elementLike.classList.add('card__hurt_active')
+    }
+
     this._elementMask = this._element.querySelector('.card__mask');
     this._elementMask.src = this._link; // добавление данных
     this._elementMask.alt = this._name;
-    this._elementLike = this._element.querySelector('.card__hurt');
+   
     this._element.querySelector('.card__place').textContent = this._name;
-    // this._element.querySelector('.card__hurt-count').textContent = this._getLikesCount();
     this._likesCount = this._element.querySelector('.card__hurt-count');
     this._likesCount.textContent = this._likes.length;
     
@@ -43,11 +49,6 @@ export default class Card {
   cardId() { // id для лайков присваивает
     return this._cardId
   }
-
-  // isLike() {
-  //   if (cardData.likes.some((like) => like._id === myId)) { 
-  //   }
-  // }
 
   isLike () {
     this._likes.forEach((like) => {
