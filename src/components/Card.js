@@ -30,8 +30,12 @@ export default class Card {
     this._elementMask.alt = this._name;
     this._elementLike = this._element.querySelector('.card__hurt');
     this._element.querySelector('.card__place').textContent = this._name;
-    this._element.querySelector('.card__hurt-count').textContent = this._getLikesCount();
-    this._isLike(); // вызов проверки поставлен ли мной лайк
+    // this._element.querySelector('.card__hurt-count').textContent = this._getLikesCount();
+    this._likesCount = this._element.querySelector('.card__hurt-count');
+    this._likesCount.textContent = this._likes.length;
+    
+    
+    // this._isLike(); // вызов проверки поставлен ли мной лайк
     this._setEventListeners();
     return this._element // возврат элемента наружу
   }
@@ -40,12 +44,19 @@ export default class Card {
     return this._cardId
   }
 
-  _isLike = () => {
+  // isLike() {
+  //   if (cardData.likes.some((like) => like._id === myId)) { 
+  //   }
+  // }
+
+  isLike () {
     this._likes.forEach((like) => {
       if (like._id === this._userId) {
         this._elementLike.classList.add('card__hurt_active');
+      } else {
+        this._elementLike.classList.remove('card__hurt_active');
       }
-    });
+    })
   }
 
   _setEventListeners() { // устанавливает обраотчики событий для элементов карточки
@@ -65,12 +76,10 @@ export default class Card {
     });
   }
 
-  handleLikeClick() { // переключает класс на кнопке нравится
+  handleLikeClick = (data) => { // лайки
+    this._likes = data.likes;
+    this._likesCount.textContent = this._likes.length;
     this._elementLike.classList.toggle('card__hurt_active');
-  }
-
-  _getLikesCount() { // получает количество лайков для одной карточки
-    return this._likes.length;
   }
 
   _handleDeleteClick() { // удаляет элемент карточки из DOM-дерева

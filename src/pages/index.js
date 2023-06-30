@@ -23,9 +23,9 @@ let myId; // хранит мой _id
 // ВЗАИМОДЕЙСТВИЕ С СЕРВЕРОМ
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-69',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-68',
   headers: {
-    authorization: '9e13b88e-8a47-4c65-9992-ee33a8d52585'
+    authorization: '70f24e40-981a-4d62-bb24-0aeaa2de0af4'
   }
 });
 
@@ -122,8 +122,8 @@ function createCard(cardData) { //создается экземпляр карт
 
       handleSetLike: (cardId) => {
         api.likeCard(cardId)
-          .then(() => {
-            card.handleLikeClick();
+          .then((data) => {
+            card.handleLikeClick(data);
           })
           .catch((error) => {
             console.log(`handleSetLike - ${error}`);
@@ -131,8 +131,8 @@ function createCard(cardData) { //создается экземпляр карт
       },
       handleDeleteLike: (cardId) => {
         api.unlikeCard(cardId)
-          .then(() => {
-            card.handleLikeClick();
+          .then((data) => {
+            card.handleLikeClick(data);
           })
           .catch((error) => {
             console.log(`handleDeleteLike - ${error}`);
@@ -147,7 +147,6 @@ function createCard(cardData) { //создается экземпляр карт
     const basketElement = cardElement.querySelector('.card__basket');
     basketElement.remove();
   }
-
   return cardElement;
 };
 
