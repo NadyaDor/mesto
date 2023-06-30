@@ -25,7 +25,7 @@ export default class Popup {
   };
 
   _handleOverlayClose() { // закрытие при клике на затемненную область
-    this._popupElement.addEventListener('click', (evt) => {
+    this._popupElement.addEventListener('mousedown', (evt) => {
       if (evt.currentTarget === evt.target) {
         this.close();
       }
