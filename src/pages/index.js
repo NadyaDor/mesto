@@ -11,12 +11,9 @@ import PopupWithBasket from '../components/PopupWithBasket.js'
 import {
   profileEditButton,
   profileEditPopup,
-  inputPopupProfileName,
-  inputPopupProfileAbout,
   popupAddCard,
   profileAddButton,
   profileEditAvatar,
-  inpupPopupAvatar,
   popupBasket,
   popupAvatar
 } from '../utils/constants.js'
@@ -189,15 +186,10 @@ function renderCard(cardData) { // создает и добавляет нову
 };
 
 profileEditButton.addEventListener('click', () => { // обработчик для кнопки редактирования профиля, открытие попапа
-  const userData = userInfo.getUserInfo();
-  inputPopupProfileName.value = userData.name || '';
-  inputPopupProfileAbout.value = userData.about || '';
   popupEditProfile.open();
 });
 
 profileEditAvatar.addEventListener('click', () => { // обработчик открытия попапа аватара
-  const avatarData = userInfo.getUserInfo();
-  inpupPopupAvatar.value = avatarData.avatar || '';
   popupEditAvatar.open();
 });
 
