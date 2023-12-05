@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
+  </head>
+
+  <body class="page">
+    <header class="header">
+      <img class="header__logo" src="<%=require('./images/Logo.svg')%>" alt="Логотип текущего проекта">
+      <!-- <img class="header__logo" src="./images/Logo.svg" alt="Логотип текущего проекта"> -->
+    </header>
+
+    <main>
+      <section class="profile">
+        <button class="profile__edit-avatar">
+          <img class="profile__avatar" src="<%=require('./images/Avatarka.jpg')%>" alt="Аватарка хорошего человека">
+          <!-- <img class="profile__avatar" src="./images/Avatarka.jpg" alt="Аватарка хорошего человека"> -->
+        </button>
+          <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто и его подруга</h1>
+          <button class="profile__edit-button" type="button" value="Редактировать"></button>
+          <p class="profile__about">Исследователь океана и воздуха над океаном</p>
+        </div>
+        <button class="profile__add-button" type="button"></button>
+      </section>
+
+      <section class="cards">
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p lang="en" class="footer__text">© 2020 Mesto Russia</p>
+    </footer>
+
+    <!-- ВСПЛЫВАЮЩИЕ ОКНА -->
+    <section class="popup popup_profile">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form popup__form_profile" name="form-profile" novalidate>
+          <input class="popup__input popup__input_type_name" id="profile-name" type="text" minlength="2" maxlength="40" placeholder="Введите ваше имя" name="name" required/>
+          <span class="popup__input-error" id="profile-name-error"></span>
+          <input class="popup__input popup__input_type_about" id="profile-about" type="text" minlength="2" maxlength="200" placeholder="Введите ваш статус" name="about" required/>
+          <span class="popup__input-error" id="profile-about-error"></span>
+          <button class="popup__button-edit" type="submit" disabled="true">Сохранить</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="popup popup_avatar">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form popup__form_avatar" name="form-avatar" novalidate>
+          <input class="popup__input popup__input_type_avatar" id="profile-avatar" type="url" placeholder="Ссылка на картинку" name="avatar" required/>
+          <span class="popup__input-error" id="profile-avatar-error"></span>
+          <button class="popup__button-edit" type="submit" disabled="true">Сохранить</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="popup popup_card">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form popup__form_card" name="form-card" novalidate>
+          <input class="popup__input popup__input_type_place" id="card-name" type="text" minlength="2" maxlength="30" placeholder="Название" name="name"required/>
+          <span class="popup__input-error" id="card-name-error"></span>
+          <input class="popup__input popup__input_type_link" id="card-link" type="url" placeholder="Ссылка на картинку" name="link" required/>
+          <span class="popup__input-error" id="card-link-error"></span>
+          <button class="popup__button-edit" type="submit" disabled="true">Создать</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="popup popup-mesto">
+      <div class="popup-container">
+        <button class="popup__close" type="button"></button>
+        <img class="popup-mesto__mask" src="#" alt="#">
+        <p class="popup-mesto__name"></p>
+      </div>
+    </section>
+
+    <section class="popup popup_basket">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form class="popup__form popup__form_basket" name="form-basket" novalidate>
+          <button class="popup__button-edit popup__button-edit_basket" type="submit">Да</button>
+        </form>
+      </div>
+    </section>
+
+    <template id="card-template" class="card-template_type_default">
+      <div class="card">
+        <img class="card__mask" src="src/images/Samui.jpg" alt="где-то на острове Самуи">
+        <button class="card__basket" type="button"></button>
+        <div class="card__about">
+          <h2 class="card__place">Самуи</h2>
+          <div class="card__hurts">
+            <button class="card__hurt" type="button"></button>
+            <p class="card__hurt-count">0</p>
+          </div>
+        </div>
+      </div>
+    </template>
+    <!-- <script type="module" src="./pages/index.js"></script> -->
+  </body>
+</html>

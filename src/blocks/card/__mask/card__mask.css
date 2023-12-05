@@ -1,0 +1,7 @@
+.card__mask {
+  width: 100%;
+  display: block;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  cursor: pointer;
+}
